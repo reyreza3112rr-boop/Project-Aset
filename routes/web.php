@@ -18,7 +18,7 @@ use App\Http\Controllers\RuanganController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Route::resource('kategori', KategoriController::class);
