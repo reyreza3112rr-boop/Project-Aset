@@ -35,7 +35,6 @@
             overflow-x: hidden;
         }
 
-
         /* =========================
            SIDEBAR
         ========================= */
@@ -44,43 +43,32 @@
             position: fixed;
             top: 0;
             left: 0;
-
             width: 250px;
             height: 100vh;
-
             background-color: #343a40;
             color: white;
-
             z-index: 1000;
-
             transition: all 0.3s ease;
-
             overflow-y: auto;
         }
 
-
-        /* BRAND */
+        /* =========================
+           BRAND
+        ========================= */
 
         .brand {
             height: 57px;
-
             display: flex;
             align-items: center;
-
             padding: 0 20px;
-
             background-color: #343a40;
-
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .brand a {
             color: white;
-
             text-decoration: none;
-
             font-size: 19px;
-
             font-weight: 600;
         }
 
@@ -88,30 +76,23 @@
             margin-right: 8px;
         }
 
-
         /* =========================
            USER PANEL
         ========================= */
 
         .user-panel {
             padding: 15px;
-
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-
             display: flex;
             align-items: center;
-
             gap: 10px;
         }
 
         .user-panel .avatar {
             width: 35px;
             height: 35px;
-
             border-radius: 50%;
-
             background-color: #6c757d;
-
             display: flex;
             align-items: center;
             justify-content: center;
@@ -121,16 +102,13 @@
             font-size: 14px;
         }
 
-
         /* =========================
            SIDEBAR MENU
         ========================= */
 
         .sidebar-menu {
             list-style: none;
-
             padding: 10px 8px;
-
             margin: 0;
         }
 
@@ -140,50 +118,37 @@
 
         .sidebar-menu a {
             display: flex;
-
             align-items: center;
-
             gap: 12px;
-
             padding: 11px 14px;
-
             color: #c2c7d0;
-
             text-decoration: none;
-
             border-radius: 5px;
-
             font-size: 14px;
-
             transition: 0.2s;
         }
 
         .sidebar-menu a:hover,
         .sidebar-menu a.active {
             background-color: #007bff;
-
             color: white;
         }
 
         .sidebar-menu i {
             width: 20px;
-
             text-align: center;
         }
 
-
-        /* MENU TITLE */
+        /* =========================
+           MENU TITLE
+        ========================= */
 
         .menu-title {
             color: #8f9296;
-
             font-size: 11px;
-
             text-transform: uppercase;
-
             padding: 15px 14px 7px;
         }
-
 
         /* =========================
            NAVBAR
@@ -191,42 +156,29 @@
 
         .main-navbar {
             position: fixed;
-
             top: 0;
             left: 250px;
             right: 0;
-
             height: 57px;
-
             background-color: white;
-
             border-bottom: 1px solid #dee2e6;
-
             display: flex;
-
             align-items: center;
-
             padding: 0 20px;
-
             z-index: 999;
-
             transition: all 0.3s ease;
         }
 
-
-        /* TOGGLE */
+        /* =========================
+           SIDEBAR TOGGLE
+        ========================= */
 
         .sidebar-toggle {
             border: none;
-
             background: transparent;
-
             font-size: 20px;
-
             color: #495057;
-
             cursor: pointer;
-
             padding: 5px 10px;
         }
 
@@ -234,24 +186,20 @@
             color: #007bff;
         }
 
-
-        /* NAVBAR RIGHT */
+        /* =========================
+           NAVBAR RIGHT
+        ========================= */
 
         .navbar-right {
             margin-left: auto;
-
             display: flex;
-
             align-items: center;
-
             gap: 20px;
         }
 
         .navbar-right a {
             color: #495057;
-
             text-decoration: none;
-
             font-size: 17px;
         }
 
@@ -259,30 +207,21 @@
             color: #007bff;
         }
 
-
         /* =========================
            MAIN CONTENT
         ========================= */
 
         .main-content {
             margin-left: 250px;
-
             padding-top: 57px;
-
             width: calc(100% - 250px);
-
             min-height: 100vh;
-
             transition: all 0.3s ease;
         }
-
-
-        /* CONTENT */
 
         .content-wrapper {
             padding: 25px 25px;
         }
-
 
         /* =========================
            SIDEBAR COLLAPSE
@@ -298,10 +237,8 @@
 
         body.sidebar-collapsed .main-content {
             margin-left: 0;
-
             width: 100%;
         }
-
 
         /* =========================
            MOBILE
@@ -310,7 +247,6 @@
         .sidebar-overlay {
             display: none;
         }
-
 
         @media (max-width: 768px) {
 
@@ -324,9 +260,7 @@
 
             .main-content {
                 margin-left: 0;
-
                 width: 100%;
-
                 min-height: 100vh;
             }
 
@@ -340,36 +274,28 @@
 
             .sidebar-overlay {
                 display: none;
-
                 position: fixed;
-
                 inset: 0;
-
                 background: rgba(0, 0, 0, 0.4);
-
                 z-index: 999;
             }
 
             body.sidebar-open .sidebar-overlay {
                 display: block;
             }
-
         }
 
     </style>
 
 </head>
 
-
 <body>
-
 
     <!-- =========================
          SIDEBAR
     ========================= -->
 
     <aside class="sidebar">
-
 
         <!-- BRAND -->
 
@@ -384,7 +310,6 @@
             </a>
 
         </div>
-
 
         <!-- USER PANEL -->
 
@@ -402,18 +327,15 @@
 
         </div>
 
-
         <!-- SIDEBAR MENU -->
 
         <ul class="sidebar-menu">
-
 
             <!-- MENU UTAMA -->
 
             <li class="menu-title">
                 MENU UTAMA
             </li>
-
 
             <!-- DASHBOARD -->
 
@@ -432,7 +354,6 @@
 
             </li>
 
-
             <!-- KATEGORI -->
 
             <li>
@@ -450,12 +371,12 @@
 
             </li>
 
-
             <!-- DATA BARANG -->
 
             <li>
 
-                <a href="#">
+                <a href="{{ route('barang.index') }}"
+                    class="{{ request()->routeIs('barang.*') ? 'active' : '' }}">
 
                     <i class="fa-solid fa-box"></i>
 
@@ -466,7 +387,6 @@
                 </a>
 
             </li>
-
 
             <!-- RUANGAN -->
 
@@ -484,14 +404,13 @@
 
             </li>
 
-
-            <!-- LAPORAN -->
+            <!-- STOK -->
 
             <li>
 
                 <a href="#">
 
-                    <i class="fa-solid fa-file-lines"></i>
+                    <i class="fa-solid fa-boxes-stacked"></i>
 
                     <span>
                         Stok
@@ -501,13 +420,11 @@
 
             </li>
 
-
             <!-- PENGATURAN -->
 
             <li class="menu-title">
                 PENGATURAN
             </li>
-
 
             <!-- PENGGUNA -->
 
@@ -525,7 +442,6 @@
 
             </li>
 
-
             <!-- PENGATURAN -->
 
             <li>
@@ -542,11 +458,9 @@
 
             </li>
 
-
         </ul>
 
     </aside>
-
 
     <!-- =========================
          OVERLAY MOBILE
@@ -554,13 +468,11 @@
 
     <div class="sidebar-overlay"></div>
 
-
     <!-- =========================
          NAVBAR
     ========================= -->
 
     <nav class="main-navbar">
-
 
         <!-- SIDEBAR TOGGLE -->
 
@@ -572,11 +484,9 @@
 
         </button>
 
-
         <!-- NAVBAR RIGHT -->
 
         <div class="navbar-right">
-
 
             <!-- NOTIFICATION -->
 
@@ -586,7 +496,6 @@
 
             </a>
 
-
             <!-- PROFILE -->
 
             <a href="#" title="Profil">
@@ -595,11 +504,9 @@
 
             </a>
 
-
         </div>
 
     </nav>
-
 
     <!-- =========================
          MAIN CONTENT
@@ -615,7 +522,6 @@
 
     </div>
 
-
     <!-- =========================
          BOOTSTRAP JS
     ========================= -->
@@ -623,7 +529,6 @@
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
     </script>
-
 
     <!-- =========================
          SIDEBAR SCRIPT
@@ -633,7 +538,6 @@
 
         const sidebarToggle =
             document.getElementById('sidebarToggle');
-
 
         sidebarToggle.addEventListener(
             'click',
@@ -656,10 +560,8 @@
             }
         );
 
-
         const overlay =
             document.querySelector('.sidebar-overlay');
-
 
         overlay.addEventListener(
             'click',
@@ -674,9 +576,7 @@
 
     </script>
 
-
     @stack('scripts')
-
 
 </body>
 
