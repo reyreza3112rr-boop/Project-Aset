@@ -16,6 +16,17 @@ class StokController extends Controller
         return view('stok.index', compact('stok', 'barang'));
     }
 
+    // Tambahkan 2 method ini agar Route::resource tidak error
+    public function create()
+    {
+        return redirect()->route('stok.index');
+    }
+
+    public function edit($id)
+    {
+        return redirect()->route('stok.index');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -50,4 +61,4 @@ class StokController extends Controller
 
         return redirect()->route('stok.index')->with('success', 'Data stok berhasil dihapus!');
     }
-}
+}   

@@ -4,7 +4,6 @@
 
 @push('styles')
 <style>
-
     .page-head {
         display: flex;
         align-items: flex-end;
@@ -39,6 +38,7 @@
         font-size: 13.5px;
         font-weight: 600;
         text-decoration: none;
+        cursor: pointer;
     }
 
     .btn-mono:hover {
@@ -172,20 +172,35 @@
         font-size: 13.5px;
     }
 
+    .alert-success {
+        padding: 12px 16px;
+        background: #e6f4ea;
+        color: #137333;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        font-size: 13.5px;
+    }
 </style>
 @endpush
 
 @section('content')
+
+@if(session('success'))
+    <div class="alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
 <div class="page-head">
     <div>
         <h1>Kelola Data Stok Barang</h1>
         <p>Pantau jumlah stok barang dan perbarui datanya di sini.</p>
     </div>
-    <a href="{{ route('stok.create') }}" class="btn-mono">
+    <!-- Tombol untuk Panggil Modal Tambah -->
+    <button type="button" class="btn-mono" data-bs-toggle="modal" data-bs-target="#modalTambahStok">
         <i class="fa-solid fa-plus"></i>
         Tambah Stok
-    </a>
+    </button>
 </div>
 
 <div class="table-panel">
@@ -204,7 +219,7 @@
             @forelse($stok ?? [] as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td style="font-weight:600;">{{ $item->nama_barang }}</td>
+                    <td style="font-weight:600;">{{ $item->barang->nama_barang ?? 'Barang tidak ditemukan' }}</td>
                     <td>
                         <span class="qty-pill {{ $item->jumlah <= ($item->stok_minimum ?? 10) ? 'low' : '' }}">
                             {{ $item->jumlah }}
@@ -213,9 +228,16 @@
                     <td>{{ $item->keterangan ?? '-' }}</td>
                     <td class="updated-at">{{ $item->updated_at?->translatedFormat('d M Y, H:i') ?? '-' }}</td>
                     <td class="aksi-cell">
-                        <a href="{{ route('stok.edit', $item->id) }}" class="btn-aksi" title="Edit">
+                        <!-- Tombol Edit Modal -->
+                        <button type="button" 
+                                class="btn-aksi" 
+                                title="Edit" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#modalEditStok{{ $item->id }}">
                             <i class="fa-solid fa-pen"></i>
-                        </a>
+                        </button>
+
+                        <!-- Form Hapus -->
                         <form action="{{ route('stok.destroy', $item->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Hapus data stok ini?');">
                             @csrf
                             @method('DELETE')
@@ -225,6 +247,49 @@
                         </form>
                     </td>
                 </tr>
+
+                <!-- MODAL EDIT STOK -->
+                <div class="modal fade" id="modalEditStok{{ $item->id }}" tabindex="-1" aria-labelledby="modalEditStokLabel{{ $item->id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form action="{{ route('stok.update', $item->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalEditStokLabel{{ $item->id }}">Edit Data Stok</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="id_barang" class="form-label">Pilih Barang</label>
+                                        <select name="id_barang" class="form-select" required>
+                                            <option value="">-- Pilih Barang --</option>
+                                            @foreach($barang as $b)
+                                                <option value="{{ $b->id }}" {{ $item->id_barang == $b->id ? 'selected' : '' }}>
+                                                    {{ $b->nama_barang }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="jumlah" class="form-label">Jumlah Stok</label>
+                                        <input type="number" class="form-control" name="jumlah" value="{{ $item->jumlah }}" min="0" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="keterangan" class="form-label">Keterangan</label>
+                                        <textarea class="form-control" name="keterangan" rows="3">{{ $item->keterangan }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- END MODAL EDIT STOK -->
+
             @empty
                 <tr>
                     <td colspan="6">
@@ -238,5 +303,44 @@
         </tbody>
     </table>
 </div>
+
+<!-- MODAL TAMBAH STOK -->
+<div class="modal fade" id="modalTambahStok" tabindex="-1" aria-labelledby="modalTambahStokLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('stok.store') }}" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTambahStokLabel">Tambah Data Stok</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="id_barang" class="form-label">Pilih Barang</label>
+                        <select name="id_barang" class="form-select" required>
+                            <option value="">-- Pilih Barang --</option>
+                            @foreach($barang as $b)
+                                <option value="{{ $b->id }}">{{ $b->nama_barang }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlah" class="form-label">Jumlah Stok</label>
+                        <input type="number" class="form-control" name="jumlah" placeholder="Masukkan jumlah stok" min="0" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="keterangan" class="form-label">Keterangan</label>
+                        <textarea class="form-control" name="keterangan" rows="3" placeholder="Contoh: Stok awal gudang"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END MODAL TAMBAH STOK -->
 
 @endsection
