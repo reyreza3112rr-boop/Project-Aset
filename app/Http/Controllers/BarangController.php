@@ -3,20 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\Kategori;
+use App\Models\Ruangan;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
 {
     public function index()
     {
-        $barang = Barang::latest('id_barang')->get();
-        return view('barang.index', compact('barang'));
+        // Mengambil data barang beserta relasi kategori dan ruangan
+        $barang = Barang::with(['kategori', 'ruangan'])->latest('id_barang')->get();
+        
+        // Ambil data untuk dropdown di modal
+        $kategori = Kategori::all();
+        $ruangan = Ruangan::all();
+
+        return view('barang.index', compact('barang', 'kategori', 'ruangan'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'nama_barang' => 'required',
+            'id_kategori' => 'required',
+            'id_ruangan'  => 'required',
             'harga'       => 'nullable|numeric',
         ]);
 
@@ -29,6 +39,8 @@ class BarangController extends Controller
     {
         $request->validate([
             'nama_barang' => 'required',
+            'id_kategori' => 'required',
+            'id_ruangan'  => 'required',
             'harga'       => 'nullable|numeric',
         ]);
 

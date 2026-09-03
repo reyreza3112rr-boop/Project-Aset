@@ -10,11 +10,12 @@ class Ruangan extends Model
     use HasFactory;
 
     protected $table = 'ruangans';
+    protected $primaryKey = 'id'; // Sesuai HeidiSQL (id)
 
-    protected $fillable = [
-        'kode_ruangan',
-        'nama_ruangan',
-        'kapasitas',
-        'keterangan',
-    ];
+    protected $guarded = [];
+
+    public function barangs()
+    {
+        return $this->hasMany(Barang::class, 'id_ruangan', 'id');
+    }
 }

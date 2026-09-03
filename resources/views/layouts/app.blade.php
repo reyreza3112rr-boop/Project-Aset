@@ -180,6 +180,31 @@
             color: #8b8c94;
         }
 
+        .user-panel form.logout-form {
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .user-panel .logout-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--ink-line);
+            background: transparent;
+            color: #a9aab1;
+            cursor: pointer;
+            transition: background .15s ease, color .15s ease, border-color .15s ease;
+        }
+
+        .user-panel .logout-btn:hover {
+            background: rgba(216, 82, 82, .12);
+            border-color: #d85252;
+            color: #d85252;
+        }
+
         /* =========================
            SIDEBAR MENU
         ========================= */
@@ -286,48 +311,6 @@
         .sidebar-toggle:hover {
             color: var(--text-ink);
             border-color: #cfcfd4;
-        }
-
-        /* =========================
-           NAVBAR RIGHT
-        ========================= */
-
-        .navbar-right {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .navbar-right a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 15px;
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            background: var(--surface);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .navbar-right a:hover {
-            color: var(--text-ink);
-            border-color: #cfcfd4;
-        }
-
-        .navbar-right a .dot {
-            position: absolute;
-            top: 6px;
-            right: 7px;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #1a1b20;
-            border: 1.5px solid var(--surface);
         }
 
         /* =========================
@@ -447,9 +430,16 @@
             </div>
 
             <div class="user-meta">
-                <span class="user-name">Administrator</span>
-                <span class="user-role">Super admin</span>
+                <span class="user-name">{{ auth()->user()->name ?? 'Administrator' }}</span>
+                <span class="user-role">{{ auth()->user()->email ?? 'Super admin' }}</span>
             </div>
+
+            <form action="{{ route('logout') }}" method="POST" class="logout-form">
+                @csrf
+                <button type="submit" class="logout-btn" title="Keluar">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </form>
 
         </div>
 
@@ -548,44 +538,6 @@
 
             </li>
 
-            <!-- PENGATURAN -->
-
-            <li class="menu-title">
-                PENGATURAN
-            </li>
-
-            <!-- PENGGUNA -->
-
-            <li>
-
-                <a href="#" class="disabled" title="Route belum dibuat">
-
-                    <i class="fa-solid fa-users"></i>
-
-                    <span>
-                        Pengguna
-                    </span>
-
-                </a>
-
-            </li>
-
-            <!-- PENGATURAN -->
-
-            <li>
-
-                <a href="#" class="disabled" title="Route belum dibuat">
-
-                    <i class="fa-solid fa-gear"></i>
-
-                    <span>
-                        Pengaturan
-                    </span>
-
-                </a>
-
-            </li>
-
         </ul>
 
     </aside>
@@ -611,29 +563,6 @@
             <i class="fa-solid fa-bars"></i>
 
         </button>
-
-        <!-- NAVBAR RIGHT -->
-
-        <div class="navbar-right">
-
-            <!-- NOTIFICATION -->
-
-            <a href="#" title="Notifikasi">
-
-                <i class="fa-regular fa-bell"></i>
-                <span class="dot"></span>
-
-            </a>
-
-            <!-- PROFILE -->
-
-            <a href="#" title="Profil">
-
-                <i class="fa-regular fa-user"></i>
-
-            </a>
-
-        </div>
 
     </nav>
 

@@ -23,8 +23,8 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Barang</th>
-                        <th>ID Kategori</th>
-                        <th>ID Ruangan</th>
+                        <th>Kategori</th>
+                        <th>Ruangan</th>
                         <th>Merek</th>
                         <th>Harga</th>
                         <th width="150">Aksi</th>
@@ -35,8 +35,8 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td><strong>{{ $item->nama_barang }}</strong></td>
-                            <td>{{ $item->id_kategori ?? '-' }}</td>
-                            <td>{{ $item->id_ruangan ?? '-' }}</td>
+                            <td>{{ $item->kategori->nama_kategori ?? '-' }}</td>
+                            <td>{{ $item->ruangan->nama_ruangan ?? '-' }}</td>
                             <td>{{ $item->merek ?? '-' }}</td>
                             <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                             <td>
@@ -68,12 +68,26 @@
                                                 <input type="text" name="nama_barang" class="form-control" value="{{ $item->nama_barang }}" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">ID Kategori</label>
-                                                <input type="number" name="id_kategori" class="form-control" value="{{ $item->id_kategori }}" placeholder="Contoh: 1">
+                                                <label class="form-label">Kategori</label>
+                                                <select name="id_kategori" class="form-select" required>
+                                                    <option value="" disabled>-- Pilih Kategori --</option>
+                                                    @foreach($kategori as $kat)
+                                                        <option value="{{ $kat->id }}" {{ $item->id_kategori == $kat->id ? 'selected' : '' }}>
+                                                            {{ $kat->nama_kategori }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">ID Ruangan</label>
-                                                <input type="number" name="id_ruangan" class="form-control" value="{{ $item->id_ruangan }}" placeholder="Contoh: 1">
+                                                <label class="form-label">Ruangan</label>
+                                                <select name="id_ruangan" class="form-select" required>
+                                                    <option value="" disabled>-- Pilih Ruangan --</option>
+                                                    @foreach($ruangan as $ruang)
+                                                        <option value="{{ $ruang->id }}" {{ $item->id_ruangan == $ruang->id ? 'selected' : '' }}>
+                                                            {{ $ruang->nama_ruangan }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Merek</label>
@@ -119,12 +133,22 @@
                         <input type="text" name="nama_barang" class="form-control" placeholder="Contoh: Laptop / Proyektor" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">ID Kategori</label>
-                        <input type="number" name="id_kategori" class="form-control" placeholder="Contoh: 1">
+                        <label class="form-label">Kategori</label>
+                        <select name="id_kategori" class="form-select" required>
+                            <option value="" selected disabled>-- Pilih Kategori --</option>
+                            @foreach($kategori as $kat)
+                                <option value="{{ $kat->id }}">{{ $kat->nama_kategori }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">ID Ruangan</label>
-                        <input type="number" name="id_ruangan" class="form-control" placeholder="Contoh: 1">
+                        <label class="form-label">Ruangan</label>
+                        <select name="id_ruangan" class="form-select" required>
+                            <option value="" selected disabled>-- Pilih Ruangan --</option>
+                            @foreach($ruangan as $ruang)
+                                <option value="{{ $ruang->id }}">{{ $ruang->nama_ruangan }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Merek</label>

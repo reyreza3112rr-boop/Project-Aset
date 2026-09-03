@@ -24,6 +24,42 @@ class AuthController extends Controller
     }
 
     /**
+     * Menampilkan halaman daftar akun baru.
+     */
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
+
+    /**
+     * Memproses pendaftaran akun baru.
+     */
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'captcha_verified' => ['required', 'accepted'],
+        ], [
+            'email.unique' => 'Email ini sudah terdaftar. Coba masuk, atau pakai email lain.',
+            'password.min' => 'Kata sandi minimal 8 karakter.',
+            'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
+            'captcha_verified.accepted' => 'Selesaikan verifikasi captcha terlebih dahulu.',
+        ]);
+
+        $user = User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+        Auth::login($user, true);
+
+        return redirect()->intended('/');
+    }
+
+    /**
      * Memproses percobaan login lewat email/password.
      */
     public function login(Request $request)
@@ -44,7 +80,7 @@ class AuthController extends Controller
         )) {
             $request->session()->regenerate();
 
-            return redirect()->intended('dashboard');
+            return redirect()->intended('/');
         }
 
         return back()
@@ -120,7 +156,7 @@ class AuthController extends Controller
 
         Auth::login($user, true);
 
-        return redirect()->intended('dashboard');
+        return redirect()->intended('/');
     }
 
     /**

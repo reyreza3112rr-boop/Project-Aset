@@ -188,6 +188,10 @@
         font-size: 11px;
         color: var(--text-muted);
         text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 60px;
     }
 
     .donut-wrap {
@@ -417,7 +421,7 @@
 
 <div class="dash-head">
     <div>
-        <h1>Selamat datang kembali, Administrator</h1>
+        <h1>Selamat datang kembali, {{ auth()->user()->name ?? 'Administrator' }}</h1>
         <p>Berikut ringkasan kondisi aset dan aktivitas terbaru hari ini.</p>
     </div>
     <div class="date-chip">
@@ -431,27 +435,27 @@
     <div class="metric-card">
         <div class="metric-top">
             <div class="metric-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
-            <div class="metric-trend"><i class="fa-solid fa-arrow-trend-up"></i> 4.2%</div>
+            <div class="metric-trend"><i class="fa-solid fa-arrow-trend-up"></i> Live</div>
         </div>
-        <div class="metric-num">{{ $totalAset ?? '1.284' }}</div>
+        <div class="metric-num">{{ number_format($totalAset ?? 0) }}</div>
         <div class="metric-label">Total aset terdaftar</div>
     </div>
 
     <div class="metric-card">
         <div class="metric-top">
             <div class="metric-icon"><i class="fa-solid fa-tags"></i></div>
-            <div class="metric-trend">2 baru</div>
+            <div class="metric-trend">Aktif</div>
         </div>
-        <div class="metric-num">{{ $totalKategori ?? '12' }}</div>
+        <div class="metric-num">{{ number_format($totalKategori ?? 0) }}</div>
         <div class="metric-label">Kategori aktif</div>
     </div>
 
     <div class="metric-card">
         <div class="metric-top">
             <div class="metric-icon"><i class="fa-solid fa-building"></i></div>
-            <div class="metric-trend">92% terisi</div>
+            <div class="metric-trend">Terdata</div>
         </div>
-        <div class="metric-num">{{ $totalRuangan ?? '34' }}</div>
+        <div class="metric-num">{{ number_format($totalRuangan ?? 0) }}</div>
         <div class="metric-label">Ruangan terdaftar</div>
     </div>
 
@@ -460,7 +464,7 @@
             <div class="metric-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
             <div class="metric-trend warn"><i class="fa-solid fa-circle-exclamation"></i> Perlu aksi</div>
         </div>
-        <div class="metric-num">{{ $stokMenipis ?? '7' }}</div>
+        <div class="metric-num">{{ number_format($stokMenipis ?? 0) }}</div>
         <div class="metric-label">Item stok menipis</div>
     </div>
 
@@ -476,12 +480,23 @@
             </div>
         </div>
         <div class="bars">
-            <div class="bar-col"><span class="bar-val">320</span><div class="bar-shell"><div class="bar-fill" style="height:100%"></div></div><span class="bar-name">Elektronik</span></div>
-            <div class="bar-col"><span class="bar-val">240</span><div class="bar-shell"><div class="bar-fill" style="height:75%"></div></div><span class="bar-name">Furnitur</span></div>
-            <div class="bar-col"><span class="bar-val">180</span><div class="bar-shell"><div class="bar-fill" style="height:56%"></div></div><span class="bar-name">ATK</span></div>
-            <div class="bar-col"><span class="bar-val">150</span><div class="bar-shell"><div class="bar-fill" style="height:47%"></div></div><span class="bar-name">Alat Lab</span></div>
-            <div class="bar-col"><span class="bar-val">90</span><div class="bar-shell"><div class="bar-fill" style="height:28%"></div></div><span class="bar-name">Lainnya</span></div>
-            <div class="bar-col"><span class="bar-val">40</span><div class="bar-shell"><div class="bar-fill" style="height:13%"></div></div><span class="bar-name">Kendaraan</span></div>
+            @forelse($kategoriStats ?? [] as $cat)
+                @php
+                    $maxCount = isset($kategoriStats) && count($kategoriStats) > 0 ? $kategoriStats->max('total') : 1;
+                    $percent = $maxCount > 0 ? round(($cat->total / $maxCount) * 100) : 0;
+                @endphp
+                <div class="bar-col">
+                    <span class="bar-val">{{ $cat->total }}</span>
+                    <div class="bar-shell">
+                        <div class="bar-fill" style="height:{{ $percent }}%"></div>
+                    </div>
+                    <span class="bar-name" title="{{ $cat->nama_kategori }}">{{ $cat->nama_kategori }}</span>
+                </div>
+            @empty
+                <div style="width:100%; text-align:center; color: var(--text-faint); font-size:12px; margin-auto: 0;">
+                    Belum ada data kategori.
+                </div>
+            @endforelse
         </div>
     </div>
 
@@ -522,65 +537,53 @@
             </div>
         </div>
 
-        <div class="stock-item urgent">
-            <div class="stock-icon"><i class="fa-solid fa-box-open"></i></div>
-            <div class="stock-info"><div class="sname">Toner Fotocopy</div><div class="smeta">Gudang ATK</div></div>
-            <div class="stock-qty">2<span class="min">min. 5</span></div>
-        </div>
-        <div class="stock-item urgent">
-            <div class="stock-icon"><i class="fa-solid fa-box-open"></i></div>
-            <div class="stock-info"><div class="sname">Tinta Printer</div><div class="smeta">Gudang ATK</div></div>
-            <div class="stock-qty">3<span class="min">min. 10</span></div>
-        </div>
-        <div class="stock-item warn">
-            <div class="stock-icon"><i class="fa-solid fa-box-open"></i></div>
-            <div class="stock-info"><div class="sname">Kertas A4</div><div class="smeta">Gudang ATK</div></div>
-            <div class="stock-qty">12<span class="min">min. 20</span></div>
-        </div>
-        <div class="stock-item warn">
-            <div class="stock-icon"><i class="fa-solid fa-box-open"></i></div>
-            <div class="stock-info"><div class="sname">Baterai AA</div><div class="smeta">Gudang Umum</div></div>
-            <div class="stock-qty">15<span class="min">min. 30</span></div>
-        </div>
+        @forelse($listStokMenipis ?? [] as $stok)
+            <div class="stock-item {{ $stok->jumlah <= 3 ? 'urgent' : 'warn' }}">
+                <div class="stock-icon"><i class="fa-solid fa-box-open"></i></div>
+                <div class="stock-info">
+                    <div class="sname">{{ $stok->barang->nama_barang ?? $stok->nama_item ?? 'Barang Tanpa Nama' }}</div>
+                    <div class="smeta">{{ $stok->ruangan->nama_ruangan ?? 'Gudang Utama' }}</div>
+                </div>
+                <div class="stock-qty">{{ $stok->jumlah }}<span class="min">min. {{ $stok->min_stok ?? 5 }}</span></div>
+            </div>
+        @empty
+            <p style="font-size: 12.5px; color: var(--text-muted); text-align: center; margin-top: 20px;">
+                Semua stok barang dalam kondisi aman.
+            </p>
+        @endforelse
     </div>
 
     <div class="panel">
         <div class="panel-head">
             <div>
                 <h3>Aktivitas terbaru</h3>
-                <p>Riwayat perubahan data pada sistem</p>
+                <p>Riwayat penambahan data pada sistem</p>
             </div>
         </div>
         <table class="activity">
             <thead>
-                <tr><th>Waktu</th><th>Aktivitas</th><th>Oleh</th></tr>
+                <tr><th>Waktu</th><th>Aktivitas</th><th>Kategori</th></tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="act-time">10:24</td>
-                    <td>Menambahkan aset baru "Proyektor Epson X200"<span class="act-tag add">Tambah</span></td>
-                    <td><span class="act-who"><span class="who-dot"></span>Administrator</span></td>
-                </tr>
-                <tr>
-                    <td class="act-time">09:47</td>
-                    <td>Memperbarui data ruangan "Lab Komputer 2"<span class="act-tag edit">Ubah</span></td>
-                    <td><span class="act-who"><span class="who-dot"></span>Administrator</span></td>
-                </tr>
-                <tr>
-                    <td class="act-time">09:15</td>
-                    <td>Stok "Kertas A4" berkurang menjadi 12 pak<span class="act-tag edit">Ubah</span></td>
-                    <td><span class="act-who"><span class="who-dot sys"></span>Sistem</span></td>
-                </tr>
-                <tr>
-                    <td class="act-time">Kemarin</td>
-                    <td>Menambahkan kategori baru "Alat Kesehatan"<span class="act-tag add">Tambah</span></td>
-                    <td><span class="act-who"><span class="who-dot"></span>Administrator</span></td>
-                </tr>
-                <tr>
-                    <td class="act-time">Kemarin</td>
-                    <td>Menghapus aset "Kursi Rusak #114"<span class="act-tag del">Hapus</span></td>
-                    <td><span class="act-who"><span class="who-dot"></span>Administrator</span></td>
-                </tr>
+                @forelse($barangTerbaru ?? [] as $barang)
+                    <tr>
+                        <td class="act-time">{{ $barang->created_at ? $barang->created_at->format('H:i') : '-' }}</td>
+                        <td>
+                            Menambahkan aset "{{ $barang->nama_barang }}"
+                            <span class="act-tag add">Tambah</span>
+                        </td>
+                        <td>
+                            <span class="act-who">
+                                <span class="who-dot"></span>
+                                {{ $barang->kategori->nama_kategori ?? 'Umum' }}
+                            </span>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="3" style="text-align: center; color: var(--text-muted);">Belum ada aktivitas terbaru.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

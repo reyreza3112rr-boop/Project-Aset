@@ -180,6 +180,15 @@
         margin-bottom: 16px;
         font-size: 13.5px;
     }
+
+    .alert-danger {
+        padding: 12px 16px;
+        background: #fce8e6;
+        color: #c5221f;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        font-size: 13.5px;
+    }
 </style>
 @endpush
 
@@ -191,12 +200,21 @@
     </div>
 @endif
 
+@if($errors->any())
+    <div class="alert-danger">
+        <ul style="margin: 0; padding-left: 18px;">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="page-head">
     <div>
         <h1>Kelola Data Stok Barang</h1>
         <p>Pantau jumlah stok barang dan perbarui datanya di sini.</p>
     </div>
-    <!-- Tombol untuk Panggil Modal Tambah -->
     <button type="button" class="btn-mono" data-bs-toggle="modal" data-bs-target="#modalTambahStok">
         <i class="fa-solid fa-plus"></i>
         Tambah Stok
@@ -217,6 +235,10 @@
         </thead>
         <tbody>
             @forelse($stok ?? [] as $item)
+                @php 
+                    $stokId = $item->id_stok ?? $item->id; 
+                    $barangId = $item->barang->id_barang ?? $item->barang->id ?? null;
+                @endphp
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td style="font-weight:600;">{{ $item->barang->nama_barang ?? 'Barang tidak ditemukan' }}</td>
@@ -228,17 +250,15 @@
                     <td>{{ $item->keterangan ?? '-' }}</td>
                     <td class="updated-at">{{ $item->updated_at?->translatedFormat('d M Y, H:i') ?? '-' }}</td>
                     <td class="aksi-cell">
-                        <!-- Tombol Edit Modal -->
                         <button type="button" 
                                 class="btn-aksi" 
                                 title="Edit" 
                                 data-bs-toggle="modal" 
-                                data-bs-target="#modalEditStok{{ $item->id }}">
+                                data-bs-target="#modalEditStok{{ $stokId }}">
                             <i class="fa-solid fa-pen"></i>
                         </button>
 
-                        <!-- Form Hapus -->
-                        <form action="{{ route('stok.destroy', $item->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Hapus data stok ini?');">
+                        <form action="{{ route('stok.destroy', $stokId) }}" method="POST" style="display:inline;" onsubmit="return confirm('Hapus data stok ini?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn-aksi danger" title="Hapus">
@@ -249,34 +269,35 @@
                 </tr>
 
                 <!-- MODAL EDIT STOK -->
-                <div class="modal fade" id="modalEditStok{{ $item->id }}" tabindex="-1" aria-labelledby="modalEditStokLabel{{ $item->id }}" aria-hidden="true">
+                <div class="modal fade" id="modalEditStok{{ $stokId }}" tabindex="-1" aria-labelledby="modalEditStokLabel{{ $stokId }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form action="{{ route('stok.update', $item->id) }}" method="POST">
+                            <form action="{{ route('stok.update', $stokId) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="modalEditStokLabel{{ $item->id }}">Edit Data Stok</h5>
+                                    <h5 class="modal-title" id="modalEditStokLabel{{ $stokId }}">Edit Data Stok</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="mb-3">
-                                        <label for="id_barang" class="form-label">Pilih Barang</label>
+                                        <label class="form-label">Pilih Barang</label>
                                         <select name="id_barang" class="form-select" required>
                                             <option value="">-- Pilih Barang --</option>
                                             @foreach($barang as $b)
-                                                <option value="{{ $b->id }}" {{ $item->id_barang == $b->id ? 'selected' : '' }}>
+                                                @php $bId = $b->id_barang ?? $b->id; @endphp
+                                                <option value="{{ $bId }}" {{ $item->id_barang == $bId ? 'selected' : '' }}>
                                                     {{ $b->nama_barang }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="jumlah" class="form-label">Jumlah Stok</label>
+                                        <label class="form-label">Jumlah Stok</label>
                                         <input type="number" class="form-control" name="jumlah" value="{{ $item->jumlah }}" min="0" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="keterangan" class="form-label">Keterangan</label>
+                                        <label class="form-label">Keterangan</label>
                                         <textarea class="form-control" name="keterangan" rows="3">{{ $item->keterangan }}</textarea>
                                     </div>
                                 </div>
@@ -288,8 +309,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- END MODAL EDIT STOK -->
-
             @empty
                 <tr>
                     <td colspan="6">
@@ -316,20 +335,20 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="id_barang" class="form-label">Pilih Barang</label>
+                        <label class="form-label">Pilih Barang</label>
                         <select name="id_barang" class="form-select" required>
                             <option value="">-- Pilih Barang --</option>
                             @foreach($barang as $b)
-                                <option value="{{ $b->id }}">{{ $b->nama_barang }}</option>
+                                <option value="{{ $b->id_barang ?? $b->id }}">{{ $b->nama_barang }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="jumlah" class="form-label">Jumlah Stok</label>
+                        <label class="form-label">Jumlah Stok</label>
                         <input type="number" class="form-control" name="jumlah" placeholder="Masukkan jumlah stok" min="0" required>
                     </div>
                     <div class="mb-3">
-                        <label for="keterangan" class="form-label">Keterangan</label>
+                        <label class="form-label">Keterangan</label>
                         <textarea class="form-control" name="keterangan" rows="3" placeholder="Contoh: Stok awal gudang"></textarea>
                     </div>
                 </div>
@@ -341,6 +360,5 @@
         </div>
     </div>
 </div>
-<!-- END MODAL TAMBAH STOK -->
 
 @endsection

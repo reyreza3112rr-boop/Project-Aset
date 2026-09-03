@@ -9,14 +9,18 @@ class Kategori extends Model
 {
     use HasFactory;
 
-    // Nama tabel di database
     protected $table = 'kategoris';
+    protected $primaryKey = 'id'; // Sesuai HeidiSQL (id)
 
-    // Kolom yang diizinkan untuk diisi data
     protected $fillable = [
         'kode_kategori',
         'nama_kategori',
         'deskripsi',
         'status',
     ];
+
+    public function barangs()
+    {
+        return $this->hasMany(Barang::class, 'id_kategori', 'id');
+    }
 }

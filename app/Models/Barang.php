@@ -10,13 +10,24 @@ class Barang extends Model
     use HasFactory;
 
     protected $table = 'barangs';
-    protected $primaryKey = 'id_barang'; // Karena primary key-nya id_barang
+    protected $primaryKey = 'id_barang';
+    protected $guarded = [];
 
-    protected $fillable = [
-        'id_kategori',
-        'id_ruangan',
-        'nama_barang',
-        'merek',
-        'harga',
-    ];
+    // Relasi ke Kategori (Foreign Key: id_kategori, Primary Key Kategori: id)
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'id_kategori', 'id');
+    }
+
+    // Relasi ke Ruangan (Foreign Key: id_ruangan, Primary Key Ruangan: id)
+    public function ruangan()
+    {
+        return $this->belongsTo(Ruangan::class, 'id_ruangan', 'id');
+    }
+
+    // Relasi ke Stok
+    public function stok()
+    {
+        return $this->hasMany(Stok::class, 'id_barang', 'id_barang');
+    }
 }
