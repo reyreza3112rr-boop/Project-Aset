@@ -143,11 +143,11 @@ class AuthController extends Controller
                     'provider_id' => $socialUser->getId(),
                 ])->save();
             } else {
-                // Buat akun baru
+                // Buat akun baru dengan helper kompatibel Laravel 7
                 $user = User::create([
                     'name'        => $socialUser->getName() ?: $socialUser->getNickname() ?: 'Pengguna',
                     'email'       => $socialUser->getEmail(),
-                    'password'    => Str::password(32),
+                    'password'    => bcrypt(Str::random(32)),
                     'provider'    => $provider,
                     'provider_id' => $socialUser->getId(),
                 ]);
