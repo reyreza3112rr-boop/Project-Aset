@@ -110,6 +110,11 @@ class AuthController extends Controller
     {
         $this->ensureProviderAllowed($provider);
 
+        // Memaksa Google selalu menampilkan opsi pilihan akun setiap kali diklik
+        if ($provider === 'google') {
+            return Socialite::driver($provider)->with(['prompt' => 'select_account'])->redirect();
+        }
+
         return Socialite::driver($provider)->redirect();
     }
 

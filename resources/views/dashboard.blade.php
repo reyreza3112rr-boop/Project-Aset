@@ -52,7 +52,7 @@
         border: 1px solid var(--border);
         border-radius: 16px;
         padding: 16px 18px 15px;
-        box-shadow: 0 1px 2px rgba(16,20,42,.04), 0 8px 20px -14px rgba(16,20,42,.14);
+        box-shadow: 0 1px 0 rgba(255,255,255,.03) inset, 0 10px 24px -18px rgba(0,0,0,.6);
     }
 
     .metric-top {
@@ -84,8 +84,8 @@
     }
 
     .metric-trend.warn {
-        background: var(--mono-strong);
-        color: #fff;
+        background: var(--gold);
+        color: #14180f;
     }
 
     .metric-num {
@@ -107,7 +107,7 @@
         border: 1px solid var(--border);
         border-radius: 16px;
         padding: 18px 20px 20px;
-        box-shadow: 0 1px 2px rgba(16,20,42,.04), 0 8px 20px -14px rgba(16,20,42,.14);
+        box-shadow: 0 1px 0 rgba(255,255,255,.03) inset, 0 10px 24px -18px rgba(0,0,0,.6);
     }
 
     .panel-head {
@@ -147,7 +147,7 @@
         align-items: flex-end;
         gap: 14px;
         height: 170px;
-        padding-top: 4px;
+        padding-top: 24px;
     }
 
     .bar-col {
@@ -163,10 +163,11 @@
     .bar-shell {
         width: 100%;
         max-width: 34px;
-        height: 100%;
+        height: 120px;
         display: flex;
         align-items: flex-end;
-        background: #f7f7f8;
+        background: rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(0, 0, 0, 0.08);
         border-radius: 7px;
         overflow: hidden;
     }
@@ -174,7 +175,7 @@
     .bar-fill {
         width: 100%;
         border-radius: 7px 7px 0 0;
-        background: linear-gradient(180deg, #4a4b52, var(--mono-strong));
+        background: linear-gradient(180deg, #d4af37, #997a15);
         transition: height 1s cubic-bezier(.2, .7, .2, 1);
     }
 
@@ -182,11 +183,12 @@
         font-size: 11px;
         font-weight: 700;
         font-family: "IBM Plex Mono", monospace;
+        color: #1e293b;
     }
 
     .bar-name {
         font-size: 11px;
-        color: var(--text-muted);
+        color: #64748b;
         text-align: center;
         white-space: nowrap;
         overflow: hidden;
@@ -277,20 +279,21 @@
     }
 
     .stock-item.urgent {
-        background: #f0f0f1;
-        border-left: 3px solid var(--mono-strong);
+        background: rgba(217, 173, 79, .08);
+        border-left: 3px solid var(--gold);
     }
 
     .stock-item.warn {
-        background: #f7f7f8;
-        border-left: 3px dashed #b5b6be;
+        background: rgba(255, 255, 255, .03);
+        border-left: 3px dashed var(--text-faint);
     }
 
     .stock-icon {
         width: 30px;
         height: 30px;
         border-radius: 8px;
-        background: rgba(255, 255, 255, .7);
+        background: rgba(255, 255, 255, .05);
+        color: var(--gold);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -373,7 +376,7 @@
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: var(--mono-strong);
+        background: var(--gold);
     }
 
     .who-dot.sys {
@@ -390,19 +393,19 @@
     }
 
     .act-tag.add {
-        background: var(--mono-strong);
-        color: #fff;
+        background: var(--gold);
+        color: #14180f;
     }
 
     .act-tag.edit {
         background: var(--mono-tint);
-        color: var(--mono-strong);
+        color: var(--gold-strong);
     }
 
     .act-tag.del {
-        background: #fff;
-        color: var(--mono-strong);
-        border: 1px solid var(--mono-strong);
+        background: transparent;
+        color: var(--text-muted);
+        border: 1px solid var(--border);
     }
 
     @media (max-width: 1080px) {
@@ -483,7 +486,7 @@
             @forelse($kategoriStats ?? [] as $cat)
                 @php
                     $maxCount = isset($kategoriStats) && count($kategoriStats) > 0 ? $kategoriStats->max('total') : 1;
-                    $percent = $maxCount > 0 ? round(($cat->total / $maxCount) * 100) : 0;
+                    $percent = $maxCount > 0 ? max(round(($cat->total / $maxCount) * 100), 15) : 15;
                 @endphp
                 <div class="bar-col">
                     <span class="bar-val">{{ $cat->total }}</span>
@@ -493,7 +496,7 @@
                     <span class="bar-name" title="{{ $cat->nama_kategori }}">{{ $cat->nama_kategori }}</span>
                 </div>
             @empty
-                <div style="width:100%; text-align:center; color: var(--text-faint); font-size:12px; margin-auto: 0;">
+                <div style="width:100%; text-align:center; color: var(--text-faint); font-size:12px; margin: auto 0;">
                     Belum ada data kategori.
                 </div>
             @endforelse
@@ -510,17 +513,17 @@
         <div class="donut-wrap">
             <div class="donut">
                 <svg width="140" height="140" viewBox="0 0 150 150">
-                    <circle cx="75" cy="75" r="60" fill="none" stroke="#eeeef0" stroke-width="16"/>
-                    <circle cx="75" cy="75" r="60" fill="none" stroke="#1a1b20" stroke-width="16" stroke-linecap="round" stroke-dasharray="294 377" stroke-dashoffset="0"/>
-                    <circle cx="75" cy="75" r="60" fill="none" stroke="#8b8c94" stroke-width="16" stroke-linecap="round" stroke-dasharray="53 377" stroke-dashoffset="-294"/>
-                    <circle cx="75" cy="75" r="60" fill="none" stroke="#c7c8ce" stroke-width="16" stroke-linecap="round" stroke-dasharray="30 377" stroke-dashoffset="-347"/>
+                    <circle cx="75" cy="75" r="60" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="16"/>
+                    <circle cx="75" cy="75" r="60" fill="none" stroke="#e9c268" stroke-width="16" stroke-linecap="round" stroke-dasharray="294 377" stroke-dashoffset="0"/>
+                    <circle cx="75" cy="75" r="60" fill="none" stroke="#8a6f30" stroke-width="16" stroke-linecap="round" stroke-dasharray="53 377" stroke-dashoffset="-294"/>
+                    <circle cx="75" cy="75" r="60" fill="none" stroke="#4a4127" stroke-width="16" stroke-linecap="round" stroke-dasharray="30 377" stroke-dashoffset="-347"/>
                 </svg>
                 <div class="donut-center"><span class="big">78%</span><span class="small">kondisi baik</span></div>
             </div>
             <div class="legend">
-                <div class="legend-row"><span class="legend-dot" style="background:#1a1b20"></span><span class="lname">Baik</span><span class="lval">78%</span></div>
-                <div class="legend-row"><span class="legend-dot" style="background:#8b8c94"></span><span class="lname">Perlu perbaikan</span><span class="lval">14%</span></div>
-                <div class="legend-row"><span class="legend-dot" style="background:#c7c8ce"></span><span class="lname">Rusak</span><span class="lval">8%</span></div>
+                <div class="legend-row"><span class="legend-dot" style="background:#e9c268"></span><span class="lname">Baik</span><span class="lval">78%</span></div>
+                <div class="legend-row"><span class="legend-dot" style="background:#8a6f30"></span><span class="lname">Perlu perbaikan</span><span class="lval">14%</span></div>
+                <div class="legend-row"><span class="legend-dot" style="background:#4a4127"></span><span class="lname">Rusak</span><span class="lval">8%</span></div>
             </div>
         </div>
     </div>
