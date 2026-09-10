@@ -110,6 +110,11 @@ class AuthController extends Controller
     {
         $this->ensureProviderAllowed($provider);
 
+        // Memaksa Google selalu menampilkan opsi pilihan akun setiap kali diklik
+        if ($provider === 'google') {
+            return Socialite::driver($provider)->with(['prompt' => 'select_account'])->redirect();
+        }
+
         return Socialite::driver($provider)->redirect();
     }
 
@@ -143,11 +148,11 @@ class AuthController extends Controller
                     'provider_id' => $socialUser->getId(),
                 ])->save();
             } else {
-                // Buat akun baru
+                // Buat akun baru dengan helper kompatibel Laravel 7
                 $user = User::create([
                     'name'        => $socialUser->getName() ?: $socialUser->getNickname() ?: 'Pengguna',
                     'email'       => $socialUser->getEmail(),
-                    'password'    => Str::password(32),
+                    'password'    => bcrypt(Str::random(32)),
                     'provider'    => $provider,
                     'provider_id' => $socialUser->getId(),
                 ]);

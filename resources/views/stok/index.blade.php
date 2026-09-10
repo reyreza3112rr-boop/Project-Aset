@@ -15,9 +15,11 @@
 
     .page-head h1 {
         font-size: 21px;
-        font-weight: 700;
+        font-weight: 600;
         margin: 0 0 4px;
         letter-spacing: -.2px;
+        color: var(--text-ink);
+        font-family: "Fraunces", Georgia, serif;
     }
 
     .page-head p {
@@ -30,8 +32,8 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: var(--mono-strong);
-        color: #fff;
+        background: var(--gold);
+        color: #14180f;
         border: none;
         border-radius: 10px;
         padding: 10px 16px;
@@ -42,8 +44,8 @@
     }
 
     .btn-mono:hover {
-        background: #000;
-        color: #fff;
+        background: var(--gold-strong);
+        color: #14180f;
     }
 
     .table-panel {
@@ -51,7 +53,7 @@
         border: 1px solid var(--border);
         border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 1px 2px rgba(16,20,42,.04), 0 8px 20px -14px rgba(16,20,42,.14);
+        box-shadow: 0 1px 0 rgba(255,255,255,.03) inset, 0 10px 24px -18px rgba(0,0,0,.6);
     }
 
     table.stok-table {
@@ -60,8 +62,8 @@
     }
 
     table.stok-table thead th {
-        background: var(--mono-strong);
-        color: #fff;
+        background: var(--ink-850);
+        color: var(--gold-strong);
         text-align: left;
         font-size: 11.5px;
         text-transform: uppercase;
@@ -87,7 +89,7 @@
     }
 
     table.stok-table tbody tr:hover {
-        background: #fafafb;
+        background: rgba(217, 173, 79, .05);
     }
 
     .qty-pill {
@@ -104,8 +106,8 @@
     }
 
     .qty-pill.low {
-        background: #f0f0f1;
-        border: 1px solid var(--mono-strong);
+        background: rgba(217, 173, 79, .1);
+        border: 1px solid var(--gold);
     }
 
     .qty-pill.low::before {
@@ -149,9 +151,9 @@
     }
 
     .btn-aksi.danger:hover {
-        background: var(--mono-strong);
-        color: #fff;
-        border-color: var(--mono-strong);
+        background: var(--gold);
+        color: #14180f;
+        border-color: var(--gold);
     }
 
     .empty-state {
@@ -174,8 +176,9 @@
 
     .alert-success {
         padding: 12px 16px;
-        background: #e6f4ea;
-        color: #137333;
+        background: rgba(217, 173, 79, .1);
+        color: var(--gold-strong);
+        border: 1px solid var(--gold-dim);
         border-radius: 8px;
         margin-bottom: 16px;
         font-size: 13.5px;
@@ -183,8 +186,9 @@
 
     .alert-danger {
         padding: 12px 16px;
-        background: #fce8e6;
-        color: #c5221f;
+        background: rgba(197, 34, 31, .12);
+        color: #e8837f;
+        border: 1px solid rgba(197, 34, 31, .3);
         border-radius: 8px;
         margin-bottom: 16px;
         font-size: 13.5px;

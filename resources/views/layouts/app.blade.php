@@ -14,27 +14,48 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Google Fonts -->
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     @stack('styles')
 
     <style>
 
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
         :root {
-            --ink-900: #121316;
-            --ink-850: #1b1c21;
-            --ink-line: rgba(255, 255, 255, .08);
-            --page-bg: #f4f4f5;
-            --surface: #ffffff;
-            --border: #e5e5e8;
-            --text-ink: #17181c;
-            --text-muted: #6e6f76;
-            --text-faint: #a2a3aa;
-            --mono-strong: #1a1b20;
-            --mono-tint: #ececee;
-            --radius: 12px;
+            --primary: #2563eb;
+            --primary-light: #eff6ff;
+            --primary-soft: #dbeafe;
+            --primary-hover: #1d4ed8;
+
+            --bg: #f6f8fc;
+            --white: #ffffff;
+
+            --text: #14213d;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+
+            --border: #e5eaf2;
+            --border-blue: rgba(37, 99, 235, .35);
+
+            --success: #16a34a;
+            --danger: #dc2626;
+
+            --sidebar-width: 250px;
+            --navbar-height: 70px;
+
+            --radius: 14px;
+
+            --shadow:
+                0 4px 20px rgba(15, 23, 42, .04);
+
+            --shadow-hover:
+                0 8px 30px rgba(37, 99, 235, .10);
         }
 
         * {
@@ -47,37 +68,68 @@
             padding: 0;
             width: 100%;
             min-height: 100%;
-            font-family: "Inter", "Source Sans Pro", Arial, sans-serif;
-            background-color: var(--page-bg);
-            color: var(--text-ink);
         }
 
         body {
-            min-height: 100vh;
+            font-family: "Inter", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, .brand a {
-            font-family: "Sora", "Source Sans Pro", Arial, sans-serif;
+        a {
+            text-decoration: none;
         }
 
-        /* =========================
+
+        /* =====================================================
            SIDEBAR
-        ========================= */
+        ===================================================== */
 
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
-            width: 250px;
+
+            width: var(--sidebar-width);
             height: 100vh;
-            background: linear-gradient(185deg, var(--ink-900) 0%, var(--ink-850) 100%);
-            color: white;
+
+            background: #ffffff;
+
+            border-right: 1px solid var(--border-blue);
+
+            box-shadow:
+                4px 0 25px rgba(37, 99, 235, .05);
+
             z-index: 1000;
-            transition: all 0.3s ease;
+
+            transition: all .3s ease;
+
             overflow-y: auto;
+
             display: flex;
             flex-direction: column;
+        }
+
+        .sidebar::after {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            right: -1px;
+
+            width: 1px;
+            height: 100%;
+
+            background: linear-gradient(
+                to bottom,
+                rgba(37, 99, 235, .8),
+                rgba(59, 130, 246, .15),
+                rgba(37, 99, 235, .55)
+            );
+
+            opacity: .7;
         }
 
         .sidebar::-webkit-scrollbar {
@@ -85,256 +137,834 @@
         }
 
         .sidebar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, .12);
+            background: #dbeafe;
             border-radius: 10px;
         }
 
-        /* =========================
+
+        /* =====================================================
            BRAND
-        ========================= */
+        ===================================================== */
 
         .brand {
-            height: 57px;
+            height: var(--navbar-height);
+
             display: flex;
             align-items: center;
-            padding: 0 18px;
-            background: transparent;
-            border-bottom: 1px solid var(--ink-line);
+
+            padding: 0 20px;
+
+            border-bottom: 1px solid #edf1f7;
+
             flex-shrink: 0;
         }
 
         .brand a {
-            color: white;
-            text-decoration: none;
-            font-size: 15.5px;
-            font-weight: 700;
-            letter-spacing: .1px;
             display: flex;
             align-items: center;
+
             gap: 10px;
+
+            color: var(--text);
+
+            font-size: 19px;
+            font-weight: 800;
+
+            letter-spacing: -.5px;
         }
 
-        .brand a .brand-mark {
-            width: 32px;
-            height: 32px;
-            border-radius: 9px;
-            background: linear-gradient(135deg, #2a2b31, #000);
-            border: 1px solid var(--ink-line);
+        .brand-mark {
+            width: 35px;
+            height: 35px;
+
+            border-radius: 10px;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #3b82f6
+                );
+
+            box-shadow:
+                0 6px 15px rgba(37, 99, 235, .25);
         }
 
-        .brand a i {
-            margin: 0;
-            font-size: 14.5px;
+        .brand-mark i {
+            font-size: 16px;
         }
 
-        /* =========================
+
+        /* =====================================================
            USER PANEL
-        ========================= */
+        ===================================================== */
 
         .user-panel {
-            padding: 14px 16px;
-            margin: 10px 12px 4px;
-            border: 1px solid var(--ink-line);
-            border-radius: var(--radius);
-            background: rgba(255, 255, 255, .04);
+            margin: 16px 15px 8px;
+
+            padding: 11px;
+
             display: flex;
             align-items: center;
-            gap: 11px;
-            flex-shrink: 0;
+
+            gap: 10px;
+
+            border-radius: 12px;
+
+            background: #f8fafc;
+
+            border: 1px solid #edf1f7;
         }
 
         .user-panel .avatar {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
+
             border-radius: 50%;
-            background: linear-gradient(135deg, #3a3b42, #17181c);
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             flex-shrink: 0;
-            border: 1px solid var(--ink-line);
+
+            color: var(--primary);
+
+            background: var(--primary-soft);
         }
 
         .user-panel .avatar i {
             font-size: 14px;
-            color: #d6d7dc;
         }
 
-        .user-panel .user-meta {
-            line-height: 1.3;
+        .user-meta {
+            min-width: 0;
+            flex: 1;
+
+            line-height: 1.35;
         }
 
-        .user-panel span.user-name {
+        .user-name {
             display: block;
-            font-size: 13.5px;
-            font-weight: 600;
+
+            color: var(--text);
+
+            font-size: 12.5px;
+            font-weight: 700;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .user-panel span.user-role {
+        .user-role {
             display: block;
-            font-size: 11px;
-            color: #8b8c94;
+
+            margin-top: 2px;
+
+            color: var(--text-secondary);
+
+            font-size: 10.5px;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .user-panel form.logout-form {
+        .logout-form {
             margin-left: auto;
-            flex-shrink: 0;
         }
 
-        .user-panel .logout-btn {
+        .logout-btn {
+            width: 30px;
+            height: 30px;
+
+            border: 0;
+            border-radius: 8px;
+
+            background: transparent;
+
+            color: var(--text-light);
+
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
-            border: 1px solid var(--ink-line);
-            background: transparent;
-            color: #a9aab1;
+
             cursor: pointer;
-            transition: background .15s ease, color .15s ease, border-color .15s ease;
+
+            transition: .2s;
         }
 
-        .user-panel .logout-btn:hover {
-            background: rgba(216, 82, 82, .12);
-            border-color: #d85252;
-            color: #d85252;
+        .logout-btn:hover {
+            background: #fef2f2;
+            color: var(--danger);
         }
 
-        /* =========================
+
+        /* =====================================================
            SIDEBAR MENU
-        ========================= */
+        ===================================================== */
 
         .sidebar-menu {
             list-style: none;
-            padding: 6px 12px 16px;
+
             margin: 0;
+
+            padding: 8px 14px 20px;
+
             flex: 1;
         }
 
         .sidebar-menu li {
-            margin-bottom: 2px;
+            margin-bottom: 4px;
+        }
+
+        .menu-title {
+            padding: 18px 12px 8px;
+
+            color: #94a3b8;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            letter-spacing: .08em;
+
+            text-transform: uppercase;
         }
 
         .sidebar-menu a {
+            position: relative;
+
             display: flex;
             align-items: center;
+
             gap: 12px;
-            padding: 10px 12px;
-            color: #bdbec6;
-            text-decoration: none;
-            border-radius: 10px;
-            font-size: 13.6px;
+
+            padding: 11px 13px;
+
+            color: #64748b;
+
+            font-size: 13px;
             font-weight: 500;
-            transition: background .15s ease, color .15s ease;
+
+            border-radius: 10px;
+
+            transition:
+                background .2s ease,
+                color .2s ease,
+                transform .2s ease;
+        }
+
+        .sidebar-menu a i {
+            width: 18px;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            color: #64748b;
+
+            transition: .2s;
         }
 
         .sidebar-menu a:hover {
-            background-color: rgba(255, 255, 255, .06);
-            color: white;
+            color: var(--primary);
+
+            background: #f5f8ff;
+
+            transform: translateX(2px);
+        }
+
+        .sidebar-menu a:hover i {
+            color: var(--primary);
         }
 
         .sidebar-menu a.active {
-            background: linear-gradient(135deg, #2c2d33, #000);
-            color: white;
-            box-shadow: 0 6px 16px -8px rgba(0, 0, 0, .6);
-            border: 1px solid var(--ink-line);
-        }
+            color: var(--primary);
 
-        .sidebar-menu a.disabled {
-            opacity: .38;
-            pointer-events: none;
-            cursor: not-allowed;
-        }
+            background:
+                linear-gradient(
+                    90deg,
+                    #eff6ff,
+                    #f4f7ff
+                );
 
-        .sidebar-menu i {
-            width: 18px;
-            text-align: center;
-            font-size: 15px;
-        }
-
-        /* =========================
-           MENU TITLE
-        ========================= */
-
-        .menu-title {
-            color: #6c6d75;
-            font-size: 10.5px;
             font-weight: 600;
-            letter-spacing: .09em;
-            text-transform: uppercase;
-            padding: 16px 12px 7px;
+
+            box-shadow:
+                inset 3px 0 0 var(--primary);
         }
 
-        /* =========================
+        .sidebar-menu a.active i {
+            color: var(--primary);
+        }
+
+
+        /* =====================================================
            NAVBAR
-        ========================= */
+        ===================================================== */
 
         .main-navbar {
             position: fixed;
+
             top: 0;
-            left: 250px;
+            left: var(--sidebar-width);
             right: 0;
-            height: 57px;
-            background-color: rgba(255, 255, 255, .85);
-            backdrop-filter: blur(8px);
+
+            height: var(--navbar-height);
+
+            background: rgba(255, 255, 255, .96);
+
+            backdrop-filter: blur(10px);
+
             border-bottom: 1px solid var(--border);
+
             display: flex;
             align-items: center;
-            padding: 0 22px;
+
+            padding: 0 25px;
+
             z-index: 999;
-            transition: all 0.3s ease;
+
+            transition: .3s;
         }
 
-        /* =========================
-           SIDEBAR TOGGLE
-        ========================= */
+
+        /* =====================================================
+           TOGGLE BUTTON
+        ===================================================== */
 
         .sidebar-toggle {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 10px;
+
             border: 1px solid var(--border);
-            background: var(--surface);
+
+            background: white;
+
+            color: #475569;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .sidebar-toggle:hover {
+            color: var(--primary);
+
+            background: var(--primary-light);
+
+            border-color: #bfdbfe;
+        }
+
+
+        /* =====================================================
+           SEARCH BAR
+        ===================================================== */
+
+        .navbar-search {
+            width: 390px;
+
+            margin-left: 20px;
+
+            position: relative;
+        }
+
+        .navbar-search i {
+            position: absolute;
+
+            left: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #94a3b8;
+
+            font-size: 14px;
+        }
+
+        .navbar-search input {
+            width: 100%;
+
+            height: 40px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            outline: none;
+
+            padding: 0 15px 0 40px;
+
+            font-size: 12px;
+
+            color: var(--text);
+
+            background: #fbfcfe;
+
+            transition: .2s;
+        }
+
+        .navbar-search input:focus {
+            background: white;
+
+            border-color: #93c5fd;
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, .08);
+        }
+
+
+        /* =====================================================
+           NAVBAR RIGHT
+        ===================================================== */
+
+        .navbar-right {
+            margin-left: auto;
+
+            display: flex;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .notification {
+            position: relative;
+
             width: 36px;
             height: 36px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #475569;
+
             border-radius: 10px;
-            font-size: 15px;
-            color: var(--text-muted);
-            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .notification:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .notification .badge {
+            position: absolute;
+
+            top: 3px;
+            right: 2px;
+
+            min-width: 15px;
+            height: 15px;
+
+            padding: 0;
+
+            border-radius: 50%;
+
+            background: var(--primary);
+
+            color: white;
+
+            font-size: 8px;
+
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .sidebar-toggle:hover {
-            color: var(--text-ink);
-            border-color: #cfcfd4;
+
+        /* =====================================================
+           NAVBAR PROFILE
+        ===================================================== */
+
+        .navbar-profile {
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+
+            cursor: pointer;
         }
 
-        /* =========================
+        .navbar-profile .profile-avatar {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 50%;
+
+            background: var(--primary-soft);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: var(--primary);
+        }
+
+        .profile-info {
+            line-height: 1.25;
+        }
+
+        .profile-name {
+            display: block;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            color: var(--text);
+        }
+
+        .profile-role {
+            display: block;
+
+            font-size: 10px;
+
+            color: var(--text-secondary);
+        }
+
+        .profile-arrow {
+            margin-left: 3px;
+
+            color: #94a3b8;
+
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
            MAIN CONTENT
-        ========================= */
+        ===================================================== */
 
         .main-content {
-            margin-left: 250px;
-            padding-top: 57px;
-            width: calc(100% - 250px);
+            margin-left: var(--sidebar-width);
+
+            padding-top: var(--navbar-height);
+
+            width: calc(100% - var(--sidebar-width));
+
             min-height: 100vh;
-            transition: all 0.3s ease;
+
+            transition: .3s;
         }
 
         .content-wrapper {
-            padding: 26px 28px;
+            padding: 28px;
         }
 
-        /* =========================
+
+        /* =====================================================
+           PAGE HEADER
+        ===================================================== */
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+
+            font-size: 25px;
+            font-weight: 700;
+
+            letter-spacing: -.5px;
+
+            color: var(--text);
+        }
+
+        .page-header p {
+            margin: 6px 0 0;
+
+            color: var(--text-secondary);
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .card {
+            border: 1px solid var(--border);
+
+            background: white;
+
+            border-radius: var(--radius);
+
+            box-shadow: var(--shadow);
+
+            color: var(--text);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-header {
+            background: white;
+
+            border-bottom: 1px solid #edf1f7;
+
+            padding: 17px 20px;
+
+            font-weight: 700;
+
+            color: var(--text);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+
+        /* =====================================================
+           BUTTON PRIMARY
+        ===================================================== */
+
+        .btn-primary {
+            background: var(--primary);
+
+            border-color: var(--primary);
+
+            color: white;
+
+            font-weight: 600;
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 4px 10px rgba(37, 99, 235, .15);
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus,
+        .btn-primary:active {
+            background: var(--primary-hover) !important;
+
+            border-color: var(--primary-hover) !important;
+
+            color: white !important;
+        }
+
+
+        /* =====================================================
+           SECONDARY BUTTON
+        ===================================================== */
+
+        .btn-secondary {
+            background: white;
+
+            border: 1px solid var(--border);
+
+            color: #475569;
+
+            border-radius: 9px;
+        }
+
+        .btn-secondary:hover {
+            background: #f8fafc;
+
+            border-color: #cbd5e1;
+
+            color: var(--text);
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .form-control,
+        .form-select {
+            background: white;
+
+            border: 1px solid #dfe5ed;
+
+            color: var(--text);
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            min-height: 40px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background: white;
+
+            color: var(--text);
+
+            border-color: #93c5fd;
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, .08);
+        }
+
+        .form-control::placeholder {
+            color: #a8b1bd;
+        }
+
+        .form-label {
+            color: #475569;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           TABLE
+        ===================================================== */
+
+        .table {
+            color: var(--text);
+
+            --bs-table-bg: transparent;
+
+            --bs-table-striped-bg: #fafbfc;
+
+            --bs-table-hover-bg: #f7faff;
+
+            --bs-table-border-color: #edf1f5;
+
+            font-size: 13px;
+        }
+
+        .table thead th {
+            background: #f8fafc;
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: .04em;
+
+            border-bottom: 1px solid #e8edf3;
+
+            padding: 13px;
+        }
+
+        .table tbody td {
+            padding: 13px;
+
+            vertical-align: middle;
+
+            color: #475569;
+        }
+
+        .table tbody tr:hover {
+            background: #f7faff;
+        }
+
+
+        /* =====================================================
+           BADGES
+        ===================================================== */
+
+        .badge {
+            border-radius: 20px;
+
+            padding: 5px 9px;
+
+            font-size: 10px;
+
+            font-weight: 600;
+        }
+
+        .badge.bg-success {
+            background: #ecfdf3 !important;
+            color: #16a34a !important;
+        }
+
+        .badge.bg-warning {
+            background: #fffbeb !important;
+            color: #d97706 !important;
+        }
+
+        .badge.bg-danger {
+            background: #fef2f2 !important;
+            color: #dc2626 !important;
+        }
+
+        .badge.bg-primary {
+            background: var(--primary-light) !important;
+            color: var(--primary) !important;
+        }
+
+        .badge.bg-secondary {
+            background: #f1f5f9 !important;
+            color: #64748b !important;
+        }
+
+
+        /* =====================================================
+           ALERT
+        ===================================================== */
+
+        .alert-success {
+            background: #ecfdf5;
+
+            border: 1px solid #bbf7d0;
+
+            color: #15803d;
+
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .modal-content {
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 20px 50px rgba(15, 23, 42, .15);
+
+            color: var(--text);
+        }
+
+        .modal-header,
+        .modal-footer {
+            border-color: #edf1f7;
+        }
+
+
+        /* =====================================================
            SIDEBAR COLLAPSE
-        ========================= */
+        ===================================================== */
 
         body.sidebar-collapsed .sidebar {
-            margin-left: -250px;
+            margin-left: calc(var(--sidebar-width) * -1);
         }
 
         body.sidebar-collapsed .main-navbar {
@@ -343,65 +973,103 @@
 
         body.sidebar-collapsed .main-content {
             margin-left: 0;
+
             width: 100%;
         }
 
-        /* =========================
+
+        /* =====================================================
            MOBILE
-        ========================= */
+        ===================================================== */
 
         .sidebar-overlay {
             display: none;
         }
 
+        @media (max-width: 992px) {
+
+            .navbar-search {
+                width: 280px;
+            }
+
+        }
+
         @media (max-width: 768px) {
 
             .sidebar {
-                margin-left: -250px;
+                margin-left: calc(var(--sidebar-width) * -1);
             }
 
             .main-navbar {
                 left: 0;
+
+                padding: 0 15px;
             }
 
             .main-content {
                 margin-left: 0;
-                width: 100%;
-                min-height: 100vh;
-            }
 
-            body.sidebar-open .sidebar {
-                margin-left: 0;
+                width: 100%;
             }
 
             .content-wrapper {
                 padding: 20px 15px;
             }
 
+            .navbar-search {
+                display: none;
+            }
+
+            .profile-info,
+            .profile-arrow {
+                display: none;
+            }
+
+            body.sidebar-open .sidebar {
+                margin-left: 0;
+            }
+
             .sidebar-overlay {
                 display: none;
+
                 position: fixed;
+
                 inset: 0;
-                background: rgba(0, 0, 0, 0.45);
+
+                background: rgba(15, 23, 42, .35);
+
+                backdrop-filter: blur(2px);
+
                 z-index: 999;
             }
 
             body.sidebar-open .sidebar-overlay {
                 display: block;
             }
+
+        }
+
+        /* Fix untuk Chart container agar tidak tumpang tindih */
+        .chart-container {
+            position: relative;
+            height: 240px;
+            width: 100%;
         }
 
     </style>
 
 </head>
 
+
 <body>
 
-    <!-- =========================
-         SIDEBAR
-    ========================= -->
+
+    <!-- =====================================================
+          SIDEBAR
+    ===================================================== -->
 
     <aside class="sidebar">
+
 
         <!-- BRAND -->
 
@@ -413,11 +1081,12 @@
                     <i class="fa-solid fa-boxes-stacked"></i>
                 </span>
 
-                Asset Management
+                <span>Asset Management</span>
 
             </a>
 
         </div>
+
 
         <!-- USER PANEL -->
 
@@ -430,131 +1099,155 @@
             </div>
 
             <div class="user-meta">
-                <span class="user-name">{{ auth()->user()->name ?? 'Administrator' }}</span>
-                <span class="user-role">{{ auth()->user()->email ?? 'Super admin' }}</span>
+
+                <span class="user-name">
+                    {{ auth()->user()->name ?? 'Administrator' }}
+                </span>
+
+                <span class="user-role">
+                    {{ auth()->user()->email ?? 'Super Admin' }}
+                </span>
+
             </div>
 
-            <form action="{{ route('logout') }}" method="POST" class="logout-form">
+            <form
+                action="{{ route('logout') }}"
+                method="POST"
+                class="logout-form">
+
                 @csrf
-                <button type="submit" class="logout-btn" title="Keluar">
+
+                <button
+                    type="submit"
+                    class="logout-btn"
+                    title="Keluar">
+
                     <i class="fa-solid fa-right-from-bracket"></i>
+
                 </button>
+
             </form>
 
         </div>
 
-        <!-- SIDEBAR MENU -->
+
+        <!-- MENU -->
 
         <ul class="sidebar-menu">
+
 
             <!-- MENU UTAMA -->
 
             <li class="menu-title">
-                MENU UTAMA
+                Menu Utama
             </li>
+
 
             <!-- DASHBOARD -->
 
             <li>
 
-                <a href="{{ url('/') }}"
+                <a
+                    href="{{ url('/') }}"
                     class="{{ request()->is('/') ? 'active' : '' }}">
 
-                    <i class="fa-solid fa-gauge"></i>
+                    <i class="fa-solid fa-gauge-high"></i>
 
-                    <span>
-                        Dashboard
-                    </span>
+                    <span>Dashboard</span>
 
                 </a>
 
             </li>
+
 
             <!-- KATEGORI -->
 
             <li>
 
-                <a href="{{ route('kategori.index') }}"
+                <a
+                    href="{{ route('kategori.index') }}"
                     class="{{ request()->routeIs('kategori.*') ? 'active' : '' }}">
 
                     <i class="fa-solid fa-tags"></i>
 
-                    <span>
-                        Kategori
-                    </span>
+                    <span>Kategori</span>
 
                 </a>
 
             </li>
+
 
             <!-- DATA BARANG -->
 
             <li>
 
-                <a href="{{ route('barang.index') }}"
+                <a
+                    href="{{ route('barang.index') }}"
                     class="{{ request()->routeIs('barang.*') ? 'active' : '' }}">
 
                     <i class="fa-solid fa-box"></i>
 
-                    <span>
-                        Data Barang
-                    </span>
+                    <span>Data Barang</span>
 
                 </a>
 
             </li>
+
 
             <!-- RUANGAN -->
 
             <li>
 
-                <a href="{{ route('ruangan.index') }}"
+                <a
+                    href="{{ route('ruangan.index') }}"
                     class="{{ request()->routeIs('ruangan.*') ? 'active' : '' }}">
 
                     <i class="fa-solid fa-building"></i>
 
-                    <span>
-                        Ruangan
-                    </span>
+                    <span>Ruangan</span>
 
                 </a>
 
             </li>
+
 
             <!-- STOK -->
 
             <li>
 
-                <a href="{{ route('stok.index') }}"
+                <a
+                    href="{{ route('stok.index') }}"
                     class="{{ request()->routeIs('stok.*') ? 'active' : '' }}">
 
                     <i class="fa-solid fa-boxes-stacked"></i>
 
-                    <span>
-                        Stok
-                    </span>
+                    <span>Stok</span>
 
                 </a>
 
             </li>
 
+
         </ul>
 
     </aside>
 
-    <!-- =========================
-         OVERLAY MOBILE
-    ========================= -->
+
+    <!-- =====================================================
+          MOBILE OVERLAY
+    ===================================================== -->
 
     <div class="sidebar-overlay"></div>
 
-    <!-- =========================
-         NAVBAR
-    ========================= -->
+
+    <!-- =====================================================
+          NAVBAR
+    ===================================================== -->
 
     <nav class="main-navbar">
 
-        <!-- SIDEBAR TOGGLE -->
+
+        <!-- TOGGLE -->
 
         <button
             class="sidebar-toggle"
@@ -564,13 +1257,75 @@
 
         </button>
 
+
+        <!-- SEARCH -->
+
+        <div class="navbar-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                placeholder="Cari sesuatu...">
+
+        </div>
+
+
+        <!-- NAVBAR RIGHT -->
+
+        <div class="navbar-right">
+
+
+            <!-- NOTIFICATION -->
+
+            <div class="notification">
+
+                <i class="fa-regular fa-bell"></i>
+
+                <span class="badge">
+                    3
+                </span>
+
+            </div>
+
+
+            <!-- PROFILE -->
+
+            <div class="navbar-profile">
+
+                <div class="profile-avatar">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+                <div class="profile-info">
+
+                    <span class="profile-name">
+                        {{ auth()->user()->name ?? 'Admin' }}
+                    </span>
+
+                    <span class="profile-role">
+                        Super Admin
+                    </span>
+
+                </div>
+
+                <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+            </div>
+
+
+        </div>
+
     </nav>
 
-    <!-- =========================
-         MAIN CONTENT
-    ========================= -->
 
-    <div class="main-content">
+    <!-- =====================================================
+          MAIN CONTENT
+    ===================================================== -->
+
+    <main class="main-content">
 
         <div class="content-wrapper">
 
@@ -578,61 +1333,61 @@
 
         </div>
 
-    </div>
+    </main>
 
-    <!-- =========================
-         BOOTSTRAP JS
-    ========================= -->
+
+    <!-- =====================================================
+          BOOTSTRAP JS
+    ===================================================== -->
 
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
     </script>
 
-    <!-- =========================
-         SIDEBAR SCRIPT
-    ========================= -->
+
+    <!-- =====================================================
+          SIDEBAR SCRIPT
+    ===================================================== -->
 
     <script>
 
         const sidebarToggle =
             document.getElementById('sidebarToggle');
 
-        sidebarToggle.addEventListener(
-            'click',
-            function () {
-
-                if (window.innerWidth <= 768) {
-
-                    document.body.classList.toggle(
-                        'sidebar-open'
-                    );
-
-                } else {
-
-                    document.body.classList.toggle(
-                        'sidebar-collapsed'
-                    );
-
-                }
-
-            }
-        );
-
         const overlay =
             document.querySelector('.sidebar-overlay');
 
-        overlay.addEventListener(
-            'click',
-            function () {
 
-                document.body.classList.remove(
+        sidebarToggle.addEventListener('click', function () {
+
+            if (window.innerWidth <= 768) {
+
+                document.body.classList.toggle(
                     'sidebar-open'
                 );
 
+            } else {
+
+                document.body.classList.toggle(
+                    'sidebar-collapsed'
+                );
+
             }
-        );
+
+        });
+
+
+        overlay.addEventListener('click', function () {
+
+            document.body.classList.remove(
+                'sidebar-open'
+            );
+
+        });
+
 
     </script>
+
 
     @stack('scripts')
 
