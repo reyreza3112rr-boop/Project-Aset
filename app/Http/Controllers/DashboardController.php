@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    // Batas stok dianggap menipis. Ubah angka ini saja untuk mengubah
+    // ambang batas di seluruh dashboard.
+    const BATAS_STOK_MENIPIS = 10;
+
     public function index()
     {
         // 1. Total ringkasan
@@ -17,8 +21,8 @@ class DashboardController extends Controller
         $totalKategori = Kategori::count();
         $totalRuangan = Ruangan::count();
         
-        // Menghitung stok yang berjumlah <= 5
-        $stokMenipis = Stok::where('jumlah', '<=', 5)->count();
+        // Menghitung stok yang jumlahnya <= batas stok menipis
+        $stokMenipis = Stok::where('jumlah', '<=', self::BATAS_STOK_MENIPIS)->count();
 
         // 2. Statistik Barang per Kategori (Menyesuaikan id_kategori & id)
         $kategoriStats = Kategori::select('kategoris.nama_kategori')
@@ -27,9 +31,29 @@ class DashboardController extends Controller
             ->groupBy('kategoris.id', 'kategoris.nama_kategori')
             ->get();
 
+        // 2b. Statistik Kondisi Aset (baik / perlu perbaikan / rusak)
+        $kondisiCounts = Barang::selectRaw('kondisi, COUNT(*) as total')
+            ->groupBy('kondisi')
+            ->pluck('total', 'kondisi');
+
+        $jumlahBaik = $kondisiCounts->get('baik', 0);
+        $jumlahPerluPerbaikan = $kondisiCounts->get('perlu_perbaikan', 0);
+        $jumlahRusak = $kondisiCounts->get('rusak', 0);
+        $totalKondisi = $jumlahBaik + $jumlahPerluPerbaikan + $jumlahRusak;
+
+        $persenBaik = $totalKondisi > 0 ? round(($jumlahBaik / $totalKondisi) * 100) : 0;
+        $persenPerluPerbaikan = $totalKondisi > 0 ? round(($jumlahPerluPerbaikan / $totalKondisi) * 100) : 0;
+        $persenRusak = $totalKondisi > 0 ? (100 - $persenBaik - $persenPerluPerbaikan) : 0;
+
+        $kondisiAset = [
+            'baik' => $persenBaik,
+            'perlu_perbaikan' => $persenPerluPerbaikan,
+            'rusak' => $persenRusak,
+        ];
+
         // 3. Daftar item stok yang menipis
         $listStokMenipis = Stok::with('barang')
-            ->where('jumlah', '<=', 5)
+            ->where('jumlah', '<=', self::BATAS_STOK_MENIPIS)
             ->take(5)
             ->get();
 
@@ -45,6 +69,7 @@ class DashboardController extends Controller
             'totalRuangan',
             'stokMenipis',
             'kategoriStats',
+            'kondisiAset',
             'listStokMenipis',
             'barangTerbaru'
         ));

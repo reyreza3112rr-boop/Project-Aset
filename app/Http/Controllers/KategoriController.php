@@ -17,13 +17,14 @@ class KategoriController extends Controller
     // Simpan Data Kategori Baru
     public function store(Request $request)
     {
-        $request->validate([
-            'kode_kategori' => 'required|unique:kategoris,kode_kategori',
-            'nama_kategori' => 'required',
-            'status'        => 'required',
+        $validated = $request->validate([
+            'kode_kategori' => 'required|string|max:255|unique:kategoris,kode_kategori',
+            'nama_kategori' => 'required|string|max:255',
+            'deskripsi'     => 'nullable|string',
+            'status'        => 'required|in:Aktif,Tidak Aktif',
         ]);
 
-        Kategori::create($request->all());
+        Kategori::create($validated);
 
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan!');
     }
@@ -31,14 +32,15 @@ class KategoriController extends Controller
     // Update Data Kategori
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'kode_kategori' => 'required|unique:kategoris,kode_kategori,'.$id,
-            'nama_kategori' => 'required',
-            'status'        => 'required',
+        $validated = $request->validate([
+            'kode_kategori' => 'required|string|max:255|unique:kategoris,kode_kategori,'.$id,
+            'nama_kategori' => 'required|string|max:255',
+            'deskripsi'     => 'nullable|string',
+            'status'        => 'required|in:Aktif,Tidak Aktif',
         ]);
 
         $kategori = Kategori::findOrFail($id);
-        $kategori->update($request->all());
+        $kategori->update($validated);
 
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui!');
     }

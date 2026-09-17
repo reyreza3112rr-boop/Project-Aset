@@ -11,7 +11,15 @@ class Barang extends Model
 
     protected $table = 'barangs';
     protected $primaryKey = 'id_barang';
-    protected $guarded = [];
+
+    protected $fillable = [
+        'id_kategori',
+        'id_ruangan',
+        'nama_barang',
+        'merek',
+        'harga',
+        'kondisi',
+    ];
 
     // Relasi ke Kategori (Foreign Key: id_kategori, Primary Key Kategori: id)
     public function kategori()

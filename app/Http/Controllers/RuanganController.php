@@ -15,28 +15,28 @@ class RuanganController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'kode_ruangan' => 'required|unique:ruangans,kode_ruangan',
+        $validated = $request->validate([
+            'kode_ruangan' => 'required|string|max:255|unique:ruangans,kode_ruangan',
             'nama_ruangan' => 'required|string|max:255',
             'kapasitas'    => 'nullable|integer|min:0',
             'keterangan'   => 'nullable|string',
         ]);
 
-        Ruangan::create($request->all());
+        Ruangan::create($validated);
 
         return redirect()->route('ruangan.index')->with('success', 'Data ruangan berhasil ditambahkan.');
     }
 
     public function update(Request $request, Ruangan $ruangan)
     {
-        $request->validate([
-            'kode_ruangan' => 'required|unique:ruangans,kode_ruangan,' . $ruangan->id,
+        $validated = $request->validate([
+            'kode_ruangan' => 'required|string|max:255|unique:ruangans,kode_ruangan,' . $ruangan->id,
             'nama_ruangan' => 'required|string|max:255',
             'kapasitas'    => 'nullable|integer|min:0',
             'keterangan'   => 'nullable|string',
         ]);
 
-        $ruangan->update($request->all());
+        $ruangan->update($validated);
 
         return redirect()->route('ruangan.index')->with('success', 'Data ruangan berhasil diperbarui.');
     }

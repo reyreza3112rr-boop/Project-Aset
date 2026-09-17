@@ -423,7 +423,7 @@
 
             backdrop-filter: blur(10px);
 
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--border-blue);
 
             display: flex;
             align-items: center;
@@ -433,6 +433,27 @@
             z-index: 999;
 
             transition: .3s;
+        }
+
+        .main-navbar::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: -1px;
+
+            height: 1px;
+
+            background: linear-gradient(
+                to right,
+                rgba(37, 99, 235, .8),
+                rgba(59, 130, 246, .15),
+                rgba(37, 99, 235, .55)
+            );
+
+            opacity: .7;
         }
 
 
@@ -1088,49 +1109,6 @@
         </div>
 
 
-        <!-- USER PANEL -->
-
-        <div class="user-panel">
-
-            <div class="avatar">
-
-                <i class="fa-solid fa-user"></i>
-
-            </div>
-
-            <div class="user-meta">
-
-                <span class="user-name">
-                    {{ auth()->user()->name ?? 'Administrator' }}
-                </span>
-
-                <span class="user-role">
-                    {{ auth()->user()->email ?? 'Super Admin' }}
-                </span>
-
-            </div>
-
-            <form
-                action="{{ route('logout') }}"
-                method="POST"
-                class="logout-form">
-
-                @csrf
-
-                <button
-                    type="submit"
-                    class="logout-btn"
-                    title="Keluar">
-
-                    <i class="fa-solid fa-right-from-bracket"></i>
-
-                </button>
-
-            </form>
-
-        </div>
-
-
         <!-- MENU -->
 
         <ul class="sidebar-menu">
@@ -1258,60 +1236,59 @@
         </button>
 
 
-        <!-- SEARCH -->
-
-        <div class="navbar-search">
-
-            <i class="fa-solid fa-magnifying-glass"></i>
-
-            <input
-                type="text"
-                placeholder="Cari sesuatu...">
-
-        </div>
-
-
         <!-- NAVBAR RIGHT -->
 
         <div class="navbar-right">
 
 
-            <!-- NOTIFICATION -->
-
-            <div class="notification">
-
-                <i class="fa-regular fa-bell"></i>
-
-                <span class="badge">
-                    3
-                </span>
-
-            </div>
-
-
             <!-- PROFILE -->
 
-            <div class="navbar-profile">
+            <div class="navbar-profile dropdown">
 
-                <div class="profile-avatar">
+                <div class="d-flex align-items-center gap-2" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
 
-                    <i class="fa-solid fa-user"></i>
+                    <div class="profile-avatar">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                    <div class="profile-info">
+
+                        <span class="profile-name">
+                            {{ auth()->user()->name ?? 'Admin' }}
+                        </span>
+
+                        <span class="profile-role">
+                            Super Admin
+                        </span>
+
+                    </div>
+
+                    <i class="fa-solid fa-chevron-down profile-arrow"></i>
 
                 </div>
 
-                <div class="profile-info">
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" style="border-radius: 10px;">
 
-                    <span class="profile-name">
-                        {{ auth()->user()->name ?? 'Admin' }}
-                    </span>
+                    <li>
+                        <span class="dropdown-item-text small text-muted">
+                            {{ auth()->user()->email ?? '-' }}
+                        </span>
+                    </li>
 
-                    <span class="profile-role">
-                        Super Admin
-                    </span>
+                    <li><hr class="dropdown-divider"></li>
 
-                </div>
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="dropdown-item text-danger">
+                                <i class="fa-solid fa-right-from-bracket me-2"></i>Keluar
+                            </button>
+                        </form>
+                    </li>
 
-                <i class="fa-solid fa-chevron-down profile-arrow"></i>
+                </ul>
 
             </div>
 

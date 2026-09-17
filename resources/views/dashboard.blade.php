@@ -19,11 +19,12 @@
         font-weight: 700;
         margin: 0 0 4px;
         letter-spacing: -.2px;
+        color: var(--text);
     }
 
     .dash-head p {
         margin: 0;
-        color: var(--text-muted);
+        color: var(--text-secondary);
         font-size: 13.5px;
     }
 
@@ -31,13 +32,14 @@
         display: flex;
         align-items: center;
         gap: 7px;
-        background: var(--surface);
-        border: 1px solid var(--border);
+        background: #ffffff;
+        border: 1px solid var(--border-blue);
         border-radius: 10px;
         padding: 8px 13px;
         font-size: 12.5px;
-        color: var(--text-muted);
+        color: var(--text-secondary);
         font-weight: 500;
+        box-shadow: var(--shadow-hover);
     }
 
     .metric-grid {
@@ -47,12 +49,13 @@
         margin-bottom: 16px;
     }
 
+    /* Card Stat: Border biru & shadow permanen */
     .metric-card {
-        background: var(--surface);
-        border: 1px solid var(--border);
+        background: #ffffff;
+        border: 1px solid var(--border-blue);
         border-radius: 16px;
         padding: 16px 18px 15px;
-        box-shadow: 0 1px 0 rgba(255,255,255,.03) inset, 0 10px 24px -18px rgba(0,0,0,.6);
+        box-shadow: var(--shadow-hover);
     }
 
     .metric-top {
@@ -66,8 +69,8 @@
         width: 36px;
         height: 36px;
         border-radius: 10px;
-        background: var(--mono-tint);
-        color: var(--mono-strong);
+        background: var(--primary-light);
+        color: var(--primary);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -79,13 +82,13 @@
         font-weight: 600;
         padding: 3px 8px;
         border-radius: 20px;
-        background: var(--mono-tint);
-        color: var(--mono-strong);
+        background: var(--primary-light);
+        color: var(--primary);
     }
 
     .metric-trend.warn {
-        background: var(--gold);
-        color: #14180f;
+        background: #fef3c7;
+        color: #d97706;
     }
 
     .metric-num {
@@ -93,21 +96,23 @@
         font-size: 25px;
         font-weight: 700;
         letter-spacing: -.3px;
+        color: var(--text);
     }
 
     .metric-label {
         font-size: 12.5px;
-        color: var(--text-muted);
+        color: var(--text-secondary);
         margin-top: 2px;
         font-weight: 500;
     }
 
+    /* Panel Grafik & Tabel: Border biru & shadow permanen */
     .panel {
-        background: var(--surface);
-        border: 1px solid var(--border);
+        background: #ffffff;
+        border: 1px solid var(--border-blue);
         border-radius: 16px;
         padding: 18px 20px 20px;
-        box-shadow: 0 1px 0 rgba(255,255,255,.03) inset, 0 10px 24px -18px rgba(0,0,0,.6);
+        box-shadow: var(--shadow-hover);
     }
 
     .panel-head {
@@ -121,11 +126,12 @@
         font-size: 14.5px;
         font-weight: 600;
         margin: 0;
+        color: var(--text);
     }
 
     .panel-head p {
         font-size: 11.5px;
-        color: var(--text-muted);
+        color: var(--text-secondary);
         margin: 2px 0 0;
     }
 
@@ -166,8 +172,8 @@
         height: 120px;
         display: flex;
         align-items: flex-end;
-        background: rgba(0, 0, 0, 0.04);
-        border: 1px solid rgba(0, 0, 0, 0.08);
+        background: var(--bg);
+        border: 1px solid var(--border);
         border-radius: 7px;
         overflow: hidden;
     }
@@ -175,7 +181,7 @@
     .bar-fill {
         width: 100%;
         border-radius: 7px 7px 0 0;
-        background: linear-gradient(180deg, #d4af37, #997a15);
+        background: linear-gradient(180deg, #3b82f6, #2563eb);
         transition: height 1s cubic-bezier(.2, .7, .2, 1);
     }
 
@@ -183,12 +189,12 @@
         font-size: 11px;
         font-weight: 700;
         font-family: "IBM Plex Mono", monospace;
-        color: #1e293b;
+        color: var(--text);
     }
 
     .bar-name {
         font-size: 11px;
-        color: #64748b;
+        color: var(--text-secondary);
         text-align: center;
         white-space: nowrap;
         overflow: hidden;
@@ -226,11 +232,12 @@
         font-family: "Sora", sans-serif;
         font-size: 22px;
         font-weight: 700;
+        color: var(--text);
     }
 
     .donut-center .small {
         font-size: 10.5px;
-        color: var(--text-muted);
+        color: var(--text-secondary);
     }
 
     .legend {
@@ -255,7 +262,7 @@
     }
 
     .legend-row .lname {
-        color: var(--text-muted);
+        color: var(--text-secondary);
         flex: 1;
     }
 
@@ -263,6 +270,7 @@
         font-weight: 700;
         font-family: "IBM Plex Mono", monospace;
         font-size: 11.5px;
+        color: var(--text);
     }
 
     .stock-item {
@@ -279,26 +287,27 @@
     }
 
     .stock-item.urgent {
-        background: rgba(217, 173, 79, .08);
-        border-left: 3px solid var(--gold);
+        background: #fef2f2;
+        border-left: 3px solid var(--danger);
     }
 
     .stock-item.warn {
-        background: rgba(255, 255, 255, .03);
-        border-left: 3px dashed var(--text-faint);
+        background: #f8fafc;
+        border-left: 3px dashed var(--text-light);
     }
 
     .stock-icon {
         width: 30px;
         height: 30px;
         border-radius: 8px;
-        background: rgba(255, 255, 255, .05);
-        color: var(--gold);
+        background: #ffffff;
+        color: var(--primary);
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
         font-size: 13px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
 
     .stock-info {
@@ -309,11 +318,12 @@
     .stock-info .sname {
         font-size: 12.5px;
         font-weight: 600;
+        color: var(--text);
     }
 
     .stock-info .smeta {
         font-size: 11px;
-        color: var(--text-muted);
+        color: var(--text-secondary);
     }
 
     .stock-qty {
@@ -321,12 +331,13 @@
         font-size: 12px;
         font-weight: 700;
         text-align: right;
+        color: var(--text);
     }
 
     .stock-qty .min {
         display: block;
         font-size: 10px;
-        color: var(--text-faint);
+        color: var(--text-light);
         font-weight: 500;
     }
 
@@ -340,7 +351,7 @@
         font-size: 10.5px;
         text-transform: uppercase;
         letter-spacing: .05em;
-        color: var(--text-faint);
+        color: var(--text-secondary);
         font-weight: 600;
         padding: 0 8px 9px;
         border-bottom: 1px solid var(--border);
@@ -350,6 +361,7 @@
         padding: 11px 8px;
         font-size: 12.5px;
         border-bottom: 1px solid var(--border);
+        color: var(--text);
     }
 
     table.activity tr:last-child td {
@@ -357,7 +369,7 @@
     }
 
     .act-time {
-        color: var(--text-faint);
+        color: var(--text-light);
         font-family: "IBM Plex Mono", monospace;
         font-size: 11px;
         white-space: nowrap;
@@ -368,7 +380,7 @@
         align-items: center;
         gap: 6px;
         font-size: 11.5px;
-        color: var(--text-muted);
+        color: var(--text-secondary);
         font-weight: 500;
     }
 
@@ -376,11 +388,11 @@
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: var(--gold);
+        background: var(--primary);
     }
 
     .who-dot.sys {
-        background: var(--text-faint);
+        background: var(--text-light);
     }
 
     .act-tag {
@@ -393,19 +405,19 @@
     }
 
     .act-tag.add {
-        background: var(--gold);
-        color: #14180f;
+        background: var(--primary-light);
+        color: var(--primary);
     }
 
     .act-tag.edit {
-        background: var(--mono-tint);
-        color: var(--gold-strong);
+        background: #f1f5f9;
+        color: var(--text-secondary);
     }
 
     .act-tag.del {
-        background: transparent;
-        color: var(--text-muted);
-        border: 1px solid var(--border);
+        background: #fef2f2;
+        color: var(--danger);
+        border: 1px solid #fecaca;
     }
 
     @media (max-width: 1080px) {
@@ -496,7 +508,7 @@
                     <span class="bar-name" title="{{ $cat->nama_kategori }}">{{ $cat->nama_kategori }}</span>
                 </div>
             @empty
-                <div style="width:100%; text-align:center; color: var(--text-faint); font-size:12px; margin: auto 0;">
+                <div style="width:100%; text-align:center; color: var(--text-light); font-size:12px; margin: auto 0;">
                     Belum ada data kategori.
                 </div>
             @endforelse
@@ -510,20 +522,34 @@
                 <p>Status keseluruhan aset</p>
             </div>
         </div>
+        @php
+            $persenBaik = $kondisiAset['baik'] ?? 0;
+            $persenPerlu = $kondisiAset['perlu_perbaikan'] ?? 0;
+            $persenRusak = $kondisiAset['rusak'] ?? 0;
+
+            $circumference = 2 * M_PI * 60; // ~377, keliling lingkaran r=60
+
+            $lenBaik = round(($persenBaik / 100) * $circumference, 1);
+            $lenPerlu = round(($persenPerlu / 100) * $circumference, 1);
+            $lenRusak = round(($persenRusak / 100) * $circumference, 1);
+
+            $offsetPerlu = -$lenBaik;
+            $offsetRusak = -($lenBaik + $lenPerlu);
+        @endphp
         <div class="donut-wrap">
             <div class="donut">
                 <svg width="140" height="140" viewBox="0 0 150 150">
-                    <circle cx="75" cy="75" r="60" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="16"/>
-                    <circle cx="75" cy="75" r="60" fill="none" stroke="#e9c268" stroke-width="16" stroke-linecap="round" stroke-dasharray="294 377" stroke-dashoffset="0"/>
-                    <circle cx="75" cy="75" r="60" fill="none" stroke="#8a6f30" stroke-width="16" stroke-linecap="round" stroke-dasharray="53 377" stroke-dashoffset="-294"/>
-                    <circle cx="75" cy="75" r="60" fill="none" stroke="#4a4127" stroke-width="16" stroke-linecap="round" stroke-dasharray="30 377" stroke-dashoffset="-347"/>
+                    <circle cx="75" cy="75" r="60" fill="none" stroke="#f1f5f9" stroke-width="16"/>
+                    <circle cx="75" cy="75" r="60" fill="none" stroke="#2563eb" stroke-width="16" stroke-linecap="round" stroke-dasharray="{{ $lenBaik }} {{ $circumference }}" stroke-dashoffset="0"/>
+                    <circle cx="75" cy="75" r="60" fill="none" stroke="#f59e0b" stroke-width="16" stroke-linecap="round" stroke-dasharray="{{ $lenPerlu }} {{ $circumference }}" stroke-dashoffset="{{ $offsetPerlu }}"/>
+                    <circle cx="75" cy="75" r="60" fill="none" stroke="#ef4444" stroke-width="16" stroke-linecap="round" stroke-dasharray="{{ $lenRusak }} {{ $circumference }}" stroke-dashoffset="{{ $offsetRusak }}"/>
                 </svg>
-                <div class="donut-center"><span class="big">78%</span><span class="small">kondisi baik</span></div>
+                <div class="donut-center"><span class="big">{{ $persenBaik }}%</span><span class="small">kondisi baik</span></div>
             </div>
             <div class="legend">
-                <div class="legend-row"><span class="legend-dot" style="background:#e9c268"></span><span class="lname">Baik</span><span class="lval">78%</span></div>
-                <div class="legend-row"><span class="legend-dot" style="background:#8a6f30"></span><span class="lname">Perlu perbaikan</span><span class="lval">14%</span></div>
-                <div class="legend-row"><span class="legend-dot" style="background:#4a4127"></span><span class="lname">Rusak</span><span class="lval">8%</span></div>
+                <div class="legend-row"><span class="legend-dot" style="background:#2563eb"></span><span class="lname">Baik</span><span class="lval">{{ $persenBaik }}%</span></div>
+                <div class="legend-row"><span class="legend-dot" style="background:#f59e0b"></span><span class="lname">Perlu perbaikan</span><span class="lval">{{ $persenPerlu }}%</span></div>
+                <div class="legend-row"><span class="legend-dot" style="background:#ef4444"></span><span class="lname">Rusak</span><span class="lval">{{ $persenRusak }}%</span></div>
             </div>
         </div>
     </div>
@@ -547,10 +573,10 @@
                     <div class="sname">{{ $stok->barang->nama_barang ?? $stok->nama_item ?? 'Barang Tanpa Nama' }}</div>
                     <div class="smeta">{{ $stok->ruangan->nama_ruangan ?? 'Gudang Utama' }}</div>
                 </div>
-                <div class="stock-qty">{{ $stok->jumlah }}<span class="min">min. {{ $stok->min_stok ?? 5 }}</span></div>
+                <div class="stock-qty">{{ $stok->jumlah }}<span class="min">min. {{ $stok->min_stok ?? 10 }}</span></div>
             </div>
         @empty
-            <p style="font-size: 12.5px; color: var(--text-muted); text-align: center; margin-top: 20px;">
+            <p style="font-size: 12.5px; color: var(--text-secondary); text-align: center; margin-top: 20px;">
                 Semua stok barang dalam kondisi aman.
             </p>
         @endforelse
@@ -584,7 +610,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3" style="text-align: center; color: var(--text-muted);">Belum ada aktivitas terbaru.</td>
+                        <td colspan="3" style="text-align: center; color: var(--text-secondary);">Belum ada aktivitas terbaru.</td>
                     </tr>
                 @endforelse
             </tbody>

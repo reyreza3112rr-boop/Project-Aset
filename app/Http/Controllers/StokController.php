@@ -28,43 +28,34 @@ class StokController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'id_barang'  => 'required',
+        $validated = $request->validate([
+            'id_barang'  => 'required|exists:barangs,id_barang',
             'jumlah'     => 'required|numeric|min:0',
             'keterangan' => 'nullable|string|max:255',
         ]);
 
-        // Menyimpan data secara eksplisit agar aman dari field _token
-        Stok::create([
-            'id_barang'  => $request->id_barang,
-            'jumlah'     => $request->jumlah,
-            'keterangan' => $request->keterangan,
-        ]);
+        Stok::create($validated);
 
         return redirect()->route('stok.index')->with('success', 'Data stok berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'id_barang'  => 'required',
+        $validated = $request->validate([
+            'id_barang'  => 'required|exists:barangs,id_barang',
             'jumlah'     => 'required|numeric|min:0',
             'keterangan' => 'nullable|string|max:255',
         ]);
 
-        $stok = Stok::where('id_stok', $id)->orWhere('id', $id)->firstOrFail();
-        $stok->update([
-            'id_barang'  => $request->id_barang,
-            'jumlah'     => $request->jumlah,
-            'keterangan' => $request->keterangan,
-        ]);
+        $stok = Stok::findOrFail($id);
+        $stok->update($validated);
 
         return redirect()->route('stok.index')->with('success', 'Data stok berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
-        $stok = Stok::where('id_stok', $id)->orWhere('id', $id)->firstOrFail();
+        $stok = Stok::findOrFail($id);
         $stok->delete();
 
         return redirect()->route('stok.index')->with('success', 'Data stok berhasil dihapus!');

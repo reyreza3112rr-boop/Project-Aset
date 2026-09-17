@@ -4,110 +4,150 @@
 
 @push('styles')
 <style>
-    .page-head {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 16px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
+    /* Background area utama ala Dashboard */
+    .main-content, body {
+        background-color: #f3f6f9 !important;
+        color: #2b364b !important;
     }
 
-    .page-head h1 {
-        font-size: 21px;
-        font-weight: 600;
-        margin: 0 0 4px;
-        letter-spacing: -.2px;
-        color: var(--text-ink);
-        font-family: "Fraunces", Georgia, serif;
+    /* Card Putih dengan Border Halus & Rounded khas Dashboard */
+    .content-wrapper .card, .card {
+        background: #ffffff !important;
+        border: 1px solid #e1e8ed !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
     }
 
-    .page-head p {
-        margin: 0;
-        color: var(--text-muted);
-        font-size: 13px;
+    /* Judul Halaman */
+    .page-title {
+        color: #1e293b;
+        font-weight: 700;
     }
 
-    .btn-mono {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: var(--gold);
-        color: #14180f;
-        border: none;
+    /* Styling Tabel Bersih & Elegan (garis biru senada sidebar) */
+    .content-wrapper .table, .table {
+        color: #334155 !important;
+        --bs-table-bg: #ffffff;
+        --bs-table-border-color: #dbeafe;
+    }
+
+    /* Border luar tabel biru tipis */
+    .table-responsive {
+        border: 1px solid #dbeafe;
         border-radius: 10px;
-        padding: 10px 16px;
-        font-size: 13.5px;
-        font-weight: 600;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .btn-mono:hover {
-        background: var(--gold-strong);
-        color: #14180f;
-    }
-
-    .table-panel {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 1px 0 rgba(255,255,255,.03) inset, 0 10px 24px -18px rgba(0,0,0,.6);
     }
 
-    table.stok-table {
-        width: 100%;
-        border-collapse: collapse;
+    /* Header Tabel dengan Aksen Biru */
+    .table thead tr {
+        background-color: #eff6ff !important;
+        border-bottom: 2px solid #2563eb !important;
     }
 
-    table.stok-table thead th {
-        background: var(--ink-850);
-        color: var(--gold-strong);
-        text-align: left;
-        font-size: 11.5px;
-        text-transform: uppercase;
-        letter-spacing: .05em;
+    .table thead th {
+        color: #1e40af !important;
         font-weight: 600;
-        padding: 13px 16px;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+        padding: 12px 16px;
+        border-right: 1px solid #dbeafe;
     }
 
-    table.stok-table thead th:last-child {
-        text-align: right;
+    .table thead th:last-child {
+        border-right: none;
     }
 
-    table.stok-table tbody td {
-        padding: 13px 16px;
-        font-size: 13.5px;
-        border-bottom: 1px solid var(--border);
-        vertical-align: middle;
-        color: var(--text-ink);
+    .table tbody td {
+        padding: 14px 16px;
+        border-bottom: 1px solid #dbeafe;
+        border-right: 1px solid #eff6ff;
     }
 
-    table.stok-table tbody tr:last-child td {
-        border-bottom: none;
+    .table tbody td:last-child {
+        border-right: none;
     }
 
-    table.stok-table tbody tr:hover {
-        background: rgba(217, 173, 79, .05);
+    /* Hover efek baris tabel */
+    .table-hover tbody tr:hover {
+        background-color: #f8fafc !important;
     }
 
+    /* Modal Styling yang Bersih */
+    .modal-content {
+        background: #ffffff !important;
+        border: none !important;
+        border-radius: 12px !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #f1f5f9 !important;
+        padding: 18px 24px;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #f1f5f9 !important;
+        padding: 14px 24px;
+    }
+
+    .modal-title {
+        color: #1e293b;
+        font-weight: 600;
+    }
+
+    /* Form Input ala Dashboard */
+    .form-control, .form-select {
+        background-color: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #334155 !important;
+        border-radius: 8px !important;
+        padding: 10px 14px;
+    }
+
+    .form-control:focus, .form-select:focus {
+        background-color: #ffffff !important;
+        border-color: #3b82f6 !important;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+    }
+
+    .form-label {
+        color: #475569 !important;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    /* Tombol Utama Biru Cerah */
+    .btn-primary {
+        background-color: #2563eb !important;
+        border-color: #2563eb !important;
+        border-radius: 8px !important;
+        font-weight: 500;
+        padding: 8px 16px;
+    }
+
+    .btn-primary:hover {
+        background-color: #1d4ed8 !important;
+        border-color: #1d4ed8 !important;
+    }
+
+    /* Pil jumlah stok */
     .qty-pill {
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        font-family: "IBM Plex Mono", monospace;
         font-weight: 700;
         font-size: 12.5px;
-        padding: 4px 10px;
+        padding: 4px 12px;
         border-radius: 20px;
-        background: var(--mono-tint);
-        color: var(--mono-strong);
+        background: #eff6ff;
+        color: #1e40af;
     }
 
     .qty-pill.low {
-        background: rgba(217, 173, 79, .1);
-        border: 1px solid var(--gold);
+        background: #fef2f2;
+        color: #b91c1c;
+        border: 1px solid #fecaca;
     }
 
     .qty-pill.low::before {
@@ -115,221 +155,142 @@
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: var(--mono-strong);
-    }
-
-    .updated-at {
-        color: var(--text-muted);
-        font-size: 12.5px;
-        font-family: "IBM Plex Mono", monospace;
-    }
-
-    .aksi-cell {
-        text-align: right;
-        white-space: nowrap;
-    }
-
-    .btn-aksi {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        border: 1px solid var(--border);
-        background: var(--surface);
-        color: var(--text-muted);
-        text-decoration: none;
-        margin-left: 6px;
-        font-size: 13px;
-        cursor: pointer;
-    }
-
-    .btn-aksi:hover {
-        border-color: var(--mono-strong);
-        color: var(--mono-strong);
-    }
-
-    .btn-aksi.danger:hover {
-        background: var(--gold);
-        color: #14180f;
-        border-color: var(--gold);
-    }
-
-    .empty-state {
-        padding: 60px 20px;
-        text-align: center;
-        color: var(--text-muted);
-    }
-
-    .empty-state i {
-        font-size: 34px;
-        color: var(--text-faint);
-        margin-bottom: 12px;
-        display: block;
-    }
-
-    .empty-state p {
-        margin: 0;
-        font-size: 13.5px;
-    }
-
-    .alert-success {
-        padding: 12px 16px;
-        background: rgba(217, 173, 79, .1);
-        color: var(--gold-strong);
-        border: 1px solid var(--gold-dim);
-        border-radius: 8px;
-        margin-bottom: 16px;
-        font-size: 13.5px;
-    }
-
-    .alert-danger {
-        padding: 12px 16px;
-        background: rgba(197, 34, 31, .12);
-        color: #e8837f;
-        border: 1px solid rgba(197, 34, 31, .3);
-        border-radius: 8px;
-        margin-bottom: 16px;
-        font-size: 13.5px;
+        background: #dc2626;
     }
 </style>
 @endpush
 
 @section('content')
-
-@if(session('success'))
-    <div class="alert-success">
-        {{ session('success') }}
+<div class="container-fluid py-4 px-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="page-title mb-1">Kelola Data Stok Barang</h3>
+            <p class="text-muted small mb-0">Pantau jumlah stok barang dan perbarui datanya di sini.</p>
+        </div>
+        <button type="button" class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#modalTambahStok">
+            + Tambah Stok
+        </button>
     </div>
-@endif
 
-@if($errors->any())
-    <div class="alert-danger">
-        <ul style="margin: 0; padding-left: 18px;">
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+    {{-- Pesan Sukses --}}
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm text-white" style="background-color: #10b981;" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    {{-- Pesan Gagal / Error Validasi --}}
+    @if($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm text-white" style="background-color: #dc2626;" role="alert">
+            <strong>Data gagal disimpan:</strong>
+            <ul class="mb-0 mt-1">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    <div class="card border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th style="width:56px;">No</th>
+                            <th>Nama Barang</th>
+                            <th>Jumlah Stok</th>
+                            <th>Keterangan</th>
+                            <th>Tanggal Diperbarui</th>
+                            <th width="150" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($stok ?? [] as $item)
+                            @php
+                                $stokId = $item->id_stok ?? $item->id;
+                                $barangId = $item->barang->id_barang ?? $item->barang->id ?? null;
+                            @endphp
+                            <tr>
+                                <td class="fw-bold text-secondary">{{ $loop->iteration }}</td>
+                                <td class="fw-semibold text-dark">{{ $item->barang->nama_barang ?? 'Barang tidak ditemukan' }}</td>
+                                <td>
+                                    <span class="qty-pill {{ $item->jumlah <= ($item->stok_minimum ?? 10) ? 'low' : '' }}">
+                                        {{ $item->jumlah }}
+                                    </span>
+                                </td>
+                                <td class="text-muted">{{ $item->keterangan ?? '-' }}</td>
+                                <td class="text-muted">{{ $item->updated_at?->translatedFormat('d M Y, H:i') ?? '-' }}</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-warning btn-sm text-white me-1" style="border-radius: 6px;" data-bs-toggle="modal" data-bs-target="#modalEditStok{{ $stokId }}">
+                                        Edit
+                                    </button>
+                                    <form action="{{ route('stok.destroy', $stokId) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus data stok ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" style="border-radius: 6px;">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                            <!-- MODAL EDIT STOK -->
+                            <div class="modal fade" id="modalEditStok{{ $stokId }}" tabindex="-1" aria-labelledby="modalEditStokLabel{{ $stokId }}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <form action="{{ route('stok.update', $stokId) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalEditStokLabel{{ $stokId }}">Edit Data Stok</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Pilih Barang</label>
+                                                    <select name="id_barang" class="form-select" required>
+                                                        <option value="">-- Pilih Barang --</option>
+                                                        @foreach($barang as $b)
+                                                            @php $bId = $b->id_barang ?? $b->id; @endphp
+                                                            <option value="{{ $bId }}" {{ $item->id_barang == $bId ? 'selected' : '' }}>
+                                                                {{ $b->nama_barang }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Jumlah Stok</label>
+                                                    <input type="number" class="form-control" name="jumlah" value="{{ $item->jumlah }}" min="0" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Keterangan</label>
+                                                    <textarea class="form-control" name="keterangan" rows="3">{{ $item->keterangan }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center text-muted py-4">Belum ada data stok. Klik "Tambah Stok" untuk menambahkan.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-@endif
-
-<div class="page-head">
-    <div>
-        <h1>Kelola Data Stok Barang</h1>
-        <p>Pantau jumlah stok barang dan perbarui datanya di sini.</p>
-    </div>
-    <button type="button" class="btn-mono" data-bs-toggle="modal" data-bs-target="#modalTambahStok">
-        <i class="fa-solid fa-plus"></i>
-        Tambah Stok
-    </button>
-</div>
-
-<div class="table-panel">
-    <table class="stok-table">
-        <thead>
-            <tr>
-                <th style="width:56px;">No</th>
-                <th>Nama Barang</th>
-                <th>Jumlah Stok</th>
-                <th>Keterangan</th>
-                <th>Tanggal Diperbarui</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($stok ?? [] as $item)
-                @php 
-                    $stokId = $item->id_stok ?? $item->id; 
-                    $barangId = $item->barang->id_barang ?? $item->barang->id ?? null;
-                @endphp
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td style="font-weight:600;">{{ $item->barang->nama_barang ?? 'Barang tidak ditemukan' }}</td>
-                    <td>
-                        <span class="qty-pill {{ $item->jumlah <= ($item->stok_minimum ?? 10) ? 'low' : '' }}">
-                            {{ $item->jumlah }}
-                        </span>
-                    </td>
-                    <td>{{ $item->keterangan ?? '-' }}</td>
-                    <td class="updated-at">{{ $item->updated_at?->translatedFormat('d M Y, H:i') ?? '-' }}</td>
-                    <td class="aksi-cell">
-                        <button type="button" 
-                                class="btn-aksi" 
-                                title="Edit" 
-                                data-bs-toggle="modal" 
-                                data-bs-target="#modalEditStok{{ $stokId }}">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
-
-                        <form action="{{ route('stok.destroy', $stokId) }}" method="POST" style="display:inline;" onsubmit="return confirm('Hapus data stok ini?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn-aksi danger" title="Hapus">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-
-                <!-- MODAL EDIT STOK -->
-                <div class="modal fade" id="modalEditStok{{ $stokId }}" tabindex="-1" aria-labelledby="modalEditStokLabel{{ $stokId }}" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form action="{{ route('stok.update', $stokId) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalEditStokLabel{{ $stokId }}">Edit Data Stok</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label class="form-label">Pilih Barang</label>
-                                        <select name="id_barang" class="form-select" required>
-                                            <option value="">-- Pilih Barang --</option>
-                                            @foreach($barang as $b)
-                                                @php $bId = $b->id_barang ?? $b->id; @endphp
-                                                <option value="{{ $bId }}" {{ $item->id_barang == $bId ? 'selected' : '' }}>
-                                                    {{ $b->nama_barang }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Jumlah Stok</label>
-                                        <input type="number" class="form-control" name="jumlah" value="{{ $item->jumlah }}" min="0" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Keterangan</label>
-                                        <textarea class="form-control" name="keterangan" rows="3">{{ $item->keterangan }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <tr>
-                    <td colspan="6">
-                        <div class="empty-state">
-                            <i class="fa-solid fa-box-open"></i>
-                            <p>Belum ada data stok. Klik "Tambah Stok" untuk menambahkan.</p>
-                        </div>
-                    </td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
 </div>
 
 <!-- MODAL TAMBAH STOK -->
 <div class="modal fade" id="modalTambahStok" tabindex="-1" aria-labelledby="modalTambahStokLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form action="{{ route('stok.store') }}" method="POST">
                 @csrf
@@ -343,21 +304,21 @@
                         <select name="id_barang" class="form-select" required>
                             <option value="">-- Pilih Barang --</option>
                             @foreach($barang as $b)
-                                <option value="{{ $b->id_barang ?? $b->id }}">{{ $b->nama_barang }}</option>
+                                <option value="{{ $b->id_barang ?? $b->id }}" {{ old('id_barang') == ($b->id_barang ?? $b->id) ? 'selected' : '' }}>{{ $b->nama_barang }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Jumlah Stok</label>
-                        <input type="number" class="form-control" name="jumlah" placeholder="Masukkan jumlah stok" min="0" required>
+                        <input type="number" class="form-control" name="jumlah" placeholder="Masukkan jumlah stok" min="0" value="{{ old('jumlah') }}" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Keterangan</label>
-                        <textarea class="form-control" name="keterangan" rows="3" placeholder="Contoh: Stok awal gudang"></textarea>
+                        <textarea class="form-control" name="keterangan" rows="3" placeholder="Contoh: Stok awal gudang">{{ old('keterangan') }}</textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
@@ -365,4 +326,14 @@
     </div>
 </div>
 
+@if($errors->any())
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modalTambahStok = new bootstrap.Modal(document.getElementById('modalTambahStok'));
+            modalTambahStok.show();
+        });
+    </script>
+    @endpush
+@endif
 @endsection

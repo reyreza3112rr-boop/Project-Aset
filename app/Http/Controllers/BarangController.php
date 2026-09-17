@@ -23,29 +23,31 @@ class BarangController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_barang' => 'required',
-            'id_kategori' => 'required',
-            'id_ruangan'  => 'required',
+        $validated = $request->validate([
+            'nama_barang' => 'required|string|max:255',
+            'id_kategori' => 'required|exists:kategoris,id',
+            'id_ruangan'  => 'required|exists:ruangans,id',
             'harga'       => 'nullable|numeric',
+            'kondisi'     => 'required|in:baik,perlu_perbaikan,rusak',
         ]);
 
-        Barang::create($request->all());
+        Barang::create($validated);
 
         return redirect()->route('barang.index')->with('success', 'Data Barang berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama_barang' => 'required',
-            'id_kategori' => 'required',
-            'id_ruangan'  => 'required',
+        $validated = $request->validate([
+            'nama_barang' => 'required|string|max:255',
+            'id_kategori' => 'required|exists:kategoris,id',
+            'id_ruangan'  => 'required|exists:ruangans,id',
             'harga'       => 'nullable|numeric',
+            'kondisi'     => 'required|in:baik,perlu_perbaikan,rusak',
         ]);
 
         $barang = Barang::findOrFail($id);
-        $barang->update($request->all());
+        $barang->update($validated);
 
         return redirect()->route('barang.index')->with('success', 'Data Barang berhasil diperbarui!');
     }

@@ -12,7 +12,11 @@ class Stok extends Model
     protected $table = 'stoks';
     protected $primaryKey = 'id_stok'; // Sesuai HeidiSQL (id_stok)
 
-    protected $guarded = [];
+    protected $fillable = [
+        'id_barang',
+        'jumlah',
+        'keterangan',
+    ];
 
     public function barang()
     {

@@ -12,7 +12,12 @@ class Ruangan extends Model
     protected $table = 'ruangans';
     protected $primaryKey = 'id'; // Sesuai HeidiSQL (id)
 
-    protected $guarded = [];
+    protected $fillable = [
+        'kode_ruangan',
+        'nama_ruangan',
+        'kapasitas',
+        'keterangan',
+    ];
 
     public function barangs()
     {
